@@ -27,31 +27,38 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          ruby-version: '3.1' # Set this to your desired Ruby version
-          bundler-cache: true
-      - name: Install Jekyll and dependencies
+          python-version: '3.x'  # Ensure you are using the latest version of Python
+
+      - name: Install dependencies
         run: |
-          gem install bundler
-          bundle install
-      - name: Install Python dependencies
-        run: |
-          python -m venv venv  # Create virtual environment
-          source venv/bin/activate  # Activate the virtual environment
-          pip install -r requirements.txt  # Install Python packages
+          python -m venv .venv                # Create a virtual environment
+          source .venv/bin/activate           # Activate the virtual environment
+          pip install --upgrade pip           # Upgrade pip in the virtual environment
+          pip install nbconvert pyyaml        # Install nbconvert and PyYAML (yaml module)
+          # Add any other necessary package installations here
 
       - name: Execute conversion script
         run: |
-          source venv/bin/activate  # Activate virtual environment
-          python scripts/convert_notebooks.py  # Run your Python script
+          source .venv/bin/activate           # Ensure the virtual environment is activated
+          python scripts/convert_notebooks.py
+
       - name: Build with Jekyll
-        run: |
-          bundle exec jekyll build  # Build your Jekyll site
+        uses: actions/jekyll-build-pages@v1
+        with:
+          source: ./
+          destination: ./_site
+
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
+  
 
   # Deployment job
   deploy:
@@ -63,4 +70,6 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v2
+        uses: actions/deploy-pages@v4
+
+#
