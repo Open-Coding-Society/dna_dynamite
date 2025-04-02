@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: base
 title: DNA Dynamite
 search_exclude: true
 description: Illumina Pilot City Project
@@ -7,63 +7,71 @@ hide: true
 menu: nav/home.html
 ---
 
-
 <style>
-    .game-container {
-        position: relative;
-        margin: 60px auto; /* Centers the box horizontally */
-        width: 400px;
-        height: 400px;
-        background-color: #3498db;
-        overflow: hidden;
-        border-radius: 10px;
-    }
-    .hearts {
-        position: absolute;
-        top: -20px; /* Moves hearts right above the game box */
-        left: 5px;
-        font-size: 24px;
-        color: red;
-        text-align: left;
-        z-index: 10; /* Ensures the hearts are above the game box */
-    }
-    .block {
-        position: absolute;
-        width: 100%;
-        height: 60px;
-        background-color: #e74c3c;
-        animation: scrollUp 6s linear infinite; /* Slowed down animation */
-    }
-    @keyframes scrollUp {
-        from {
-            top: 100%;
-        }
-        to {
-            top: -30px;
-        }
-    }
-    .navbar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        background: #333;
-        color: white;
-        padding: 10px;
-    }
+  html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #111;
+  }
+
+  /* Completely overrides all layout stuff */
+  #gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vmin; /* Square */
+    width: 90vmin;
+    margin: 40px auto; /* Push it down and center horizontally */
+    background-color: #111;
+  }
+
+
+  #gameContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vmin; /* Square */
+    width: 90vmin;
+    margin: 40px auto; /* Push it down and center horizontally */
+    background-color: #111;
+  }
+
+
+  /* 💀 Kill off blog/post layout elements 
+  header, nav, .page-title, .post-meta, .post-header, .post-content, footer {
+    display: none !important;
+  } */
+
+  .wrapper, .container, main {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+  }
 </style>
 
 
-<div class="hearts">❤️❤️❤️</div>
-<div class="game-container"></div>
-<script>
-    function createBlock() {
-        const block = document.createElement("div");
-        block.classList.add("block");
-        document.querySelector(".game-container").appendChild(block);
-        setTimeout(() => {
-            block.remove();
-        }, 10000); // Increased duration to match slower scroll
-    }
-    setInterval(createBlock, 2000);
+
+
+<div id="gameContainer">
+  <canvas id='gameCanvas'></canvas>
+</div>
+
+<script type="module">
+  import Game from '{{site.baseurl}}/assets/js/dynamite/Game.js';
+  // import Background from '{{site.baseurl}}/assets/js/dynamite/Background.js';
+  import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
+
+  const environment = {
+    path: "{{site.baseurl}}",
+    pythonURI: pythonURI,
+    javaURI: javaURI,
+    fetchOptions: fetchOptions,
+    gameContainer: document.getElementById("gameContainer"),
+    gameCanvas: document.getElementById("gameCanvas")
+  };
+
+  Game.main(environment);
 </script>
