@@ -1,4 +1,5 @@
 <!-- This fragment overrides the default header provided by the remote minima theme to add support for login functionality.  -->
+{% unless page.hide %}
 <header class="site-header">
   <div class="wrapper">
     {%- assign default_paths = site.pages | map: "path" -%}
@@ -34,3 +35,4 @@
 
 <!-- Load login.js script to handle user authentication status -->
 <script type="module" src="{{ site.baseurl }}/assets/js/api/login.js"></script>
+{% endunless %}

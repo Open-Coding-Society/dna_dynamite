@@ -1,101 +1,62 @@
 ---
-layout: page 
+layout: base
 title: Login
 permalink: /login
 search_exclude: true
 show_reading_time: false 
+hide: true
 ---
 
-<style>
-.login-container {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap; /* allows the cards to wrap onto the next line if the screen is too small */
-}
-
-.login-card {
-    margin-top: 0; /* remove the top margin */
-    width: 45%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling */
-}
-
-.login-card h1 {
-    margin-bottom: 20px;
-}
-
-.signup-card {
-    margin-top: 0; /* remove the top margin */
-    width: 45%;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
-    margin-bottom: 20px;
-    overflow-x: auto; /* Enable horizontal scrolling */
-}
-
-.signup-card h1 {
-    margin-bottom: 20px;
-}
-
-</style>
-
-<div class="login-container">
-    <!-- Python Login Form -->
-    <div class="login-card">
-        <h1 id="pythonTitle">User Login (Python/Flask)</h1>
-        <form id="pythonForm" onsubmit="pythonLogin(); return false;">
-            <p>
-                <label>
-                    GitHub ID:
-                    <input type="text" name="uid" id="uid" required>
-                </label>
-            </p>
-            <p>
-                <label>
-                    Password:
-                    <input type="password" name="password" id="password" required>
-                </label>
-            </p>
-            <p>
-                <button type="submit">Login</button>
-            </p>
-            <p id="message" style="color: red;"></p>
-        </form>
+<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
+    
+    <!-- Login Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold mb-6">User Login (Python/Flask)</h2>
+      <form id="pythonForm" onsubmit="pythonLogin(); return false;" class="space-y-5">
+        <div>
+          <label for="uid" class="block text-gray-700 font-semibold mb-1">GitHub ID</label>
+          <input type="text" id="uid" name="uid" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+        </div>
+        <div>
+          <label for="password" class="block text-gray-700 font-semibold mb-1">Password</label>
+          <input type="password" id="password" name="password" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+        </div>
+        <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Login</button>
+        <p id="message" class="text-red-600 text-sm font-medium"></p>
+      </form>
     </div>
-    <div class="signup-card">
-        <h1 id="signupTitle">Sign Up</h1>
-        <form id="signupForm" onsubmit="signup(); return false;">
-            <p>
-                <label>
-                    Name:
-                    <input type="text" name="name" id="name" required>
-                </label>
-            </p>
-            <p>
-                <label>
-                    GitHub ID:
-                    <input type="text" name="signupUid" id="signupUid" required>
-                </label>
-            </p>
-            <p>
-                <label>
-                    Password:
-                    <input type="password" name="signupPassword" id="signupPassword" required>
-                </label>
-            </p>
-            <p>
-                <button type="submit">Sign Up</button>
-            </p>
-            <p id="signupMessage" style="color: green;"></p>
-        </form>
+
+    <!-- Signup Card -->
+    <div class="bg-white rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold mb-6">Sign Up</h2>
+      <form id="signupForm" onsubmit="signup(); return false;" class="space-y-5">
+        <div>
+          <label for="name" class="block text-gray-700 font-semibold mb-1">Name</label>
+          <input type="text" id="name" name="name" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+        </div>
+        <div>
+          <label for="signupUid" class="block text-gray-700 font-semibold mb-1">GitHub ID</label>
+          <input type="text" id="signupUid" name="signupUid" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+        </div>
+        <div>
+          <label for="signupPassword" class="block text-gray-700 font-semibold mb-1">Password</label>
+          <input type="password" id="signupPassword" name="signupPassword" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+        </div>
+        <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition">Sign Up</button>
+        <p id="signupMessage" class="text-green-600 text-sm font-medium"></p>
+      </form>
     </div>
+    <!-- Return Home Button -->
+    <div class="w-full text-center mt-8">
+    <a href="{{ site.baseurl }}/" class="inline-block bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+        ⬅️ Return to Home
+    </a>
+    </div>
+
+  </div>
 </div>
+
 
 <script type="module">
     import { login, pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
@@ -151,7 +112,7 @@ show_reading_time: false
     .then(data => {
         document.getElementById("signupMessage").textContent = "Signup successful!";
         // Optionally redirect to login page or handle as needed
-        // window.location.href = '{{site.baseurl}}/profile';
+        // window.location.href = '{{site.baseurl}}/';
     })
     .catch(error => {
         console.error("Signup Error:", error);
@@ -175,7 +136,7 @@ show_reading_time: false
                 return response.json();
             })
             .then(data => {
-                window.location.href = '{{site.baseurl}}/profile';
+                window.location.href = '{{site.baseurl}}/';
             })
             .catch(error => {
                 console.error("Python Database Error:", error);
