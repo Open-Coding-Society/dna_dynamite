@@ -28,18 +28,25 @@ export class GameEnv {
     }
 
     static createHeartsDisplay() {
-        if (!this.heartsContainer) {
-            this.heartsContainer = document.createElement("div");
-            this.heartsContainer.style.position = "absolute";
-            this.heartsContainer.style.top = "10px";
-            this.heartsContainer.style.left = "50%";
-            this.heartsContainer.style.transform = "translateX(-50%)";
-            this.heartsContainer.style.display = "flex";
-            this.heartsContainer.style.gap = "10px";
-            document.body.appendChild(this.heartsContainer);
-        }
-        this.updateHeartsDisplay();
-    }
+      // Instead of appending a floating div, grab the existing one from the DOM
+      this.heartsContainer = document.getElementById("livesContainer");
+  
+      // Fallback if it's missing (optional)
+      if (!this.heartsContainer) {
+          console.warn("Hearts container not found. Falling back to body.");
+          this.heartsContainer = document.createElement("div");
+          this.heartsContainer.style.position = "absolute";
+          this.heartsContainer.style.top = "10px";
+          this.heartsContainer.style.left = "50%";
+          this.heartsContainer.style.transform = "translateX(-50%)";
+          this.heartsContainer.style.display = "flex";
+          this.heartsContainer.style.gap = "10px";
+          document.body.appendChild(this.heartsContainer);
+      }
+  
+      this.updateHeartsDisplay();
+  }
+  
 
     static updateHeartsDisplay() {
         this.heartsContainer.innerHTML = ""; // Clear previous hearts
