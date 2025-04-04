@@ -46,7 +46,7 @@ permalink: /trivia/
         .question { margin-bottom: 15px; }
         .answer-feedback { font-weight: bold; margin-top: 5px; }
         .correct { color: green; }
-        .incorrect { color: red; }
+        .incorrect { color: white; }
         h2 {
             color: white;
             margin-bottom: 10px;
