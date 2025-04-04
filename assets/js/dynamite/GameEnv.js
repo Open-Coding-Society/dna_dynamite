@@ -146,6 +146,7 @@ export class GameEnv {
     static reset() {
       this.boxes = [];
       this.lives = 3;
+      this.score = 0; // Reset score
       this.gameOver = false;
       this.updateHeartsDisplay();
     }
