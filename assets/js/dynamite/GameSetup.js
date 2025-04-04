@@ -3,15 +3,19 @@ import GameEnv from "./GameEnv.js";
 let intervalId = null;
 let animationFrameId = null;
 let canvasRef = null;
+let isRunning = false; // ✅ Add this
 
 const GameSetup = {
   start(canvas) {
+    if (isRunning) return; // ✅ Prevent multiple starts
+    isRunning = true;
+  
     canvasRef = canvas;
     GameEnv.initialize(canvas);
-
+  
     this.startSpawning();
     this.startLoop();
-
+  
     canvas.addEventListener("click", this.onClick);
   },
 
@@ -50,6 +54,7 @@ const GameSetup = {
       cancelAnimationFrame(animationFrameId);
       animationFrameId = null;
     }
+    isRunning = false;
   },
 
   resume() {

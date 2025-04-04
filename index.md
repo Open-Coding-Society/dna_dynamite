@@ -1,15 +1,15 @@
 ---
-layout: base
+layout: tailwind
 title: DNA Dynamite
 search_exclude: true
 description: Illumina Pilot City Project
-hide: true
 menu: nav/home.html
 ---
 
 <script src="https://cdn.tailwindcss.com"></script>
 
-<div class="h-screen w-screen flex bg-black text-white font-sans overflow-hidden">
+<div class="w-screen" style="height: calc(100vh - 60px);">
+  <div class="h-full w-full flex bg-black text-white font-sans overflow-hidden">
   <!-- Left Panel -->
   <div class="w-1/5 p-4 flex flex-col justify-between bg-gray-900">
     <div>
@@ -34,10 +34,11 @@ menu: nav/home.html
         </ul>
       </div>
       <!-- Icons -->
-      <div class="flex space-x-4 mt-6">
-        <a href="{{ site.baseurl }}/profile" title="Profile"><img src="{{ site.baseurl }}/assets/icons/settings.svg" alt="Settings" class="h-6 w-6" /></a>
-        <a href="{{ site.baseurl }}/instructions" title="Help"><img src="{{ site.baseurl }}/assets/icons/help.svg" alt="Help" class="h-6 w-6" /></a>
+      <div class="flex gap-4 mt-6 text-sm text-blue-400 underline">
+        <a href="{{ site.baseurl }}/profile" title="Profile">Settings</a>
+        <a href="{{ site.baseurl }}/instructions" title="Help">Help</a>
       </div>
+
     </div>
     
   </div>
@@ -46,15 +47,16 @@ menu: nav/home.html
 
 
   <!-- Game Canvas -->
-  <canvas id="gameCanvas" class="w-[90vmin] h-[90vmin] mb-6"></canvas>
+<canvas id="gameCanvas" class="w-[70%] aspect-square max-h-[55vh]"></canvas>
 
   <!-- Buckets at the bottom -->
-  <div id="bucketButtons" class="flex justify-center items-center gap-8 mt-4 mb-6">
-    <button class="w-24 h-24 bg-blue-700 text-white text-4xl font-bold rounded-lg shadow-lg hover:bg-blue-600 transition-all">A</button>
-    <button class="w-24 h-24 bg-green-700 text-white text-4xl font-bold rounded-lg shadow-lg hover:bg-green-600 transition-all">T</button>
-    <button class="w-24 h-24 bg-yellow-500 text-black text-4xl font-bold rounded-lg shadow-lg hover:bg-yellow-400 transition-all">G</button>
-    <button class="w-24 h-24 bg-pink-700 text-white text-4xl font-bold rounded-lg shadow-lg hover:bg-pink-600 transition-all">C</button>
+  <div id="bucketButtons" class="flex justify-center items-center gap-4 mt-2">
+    <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">A</button>
+    <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">T</button>
+    <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">G</button>
+    <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">C</button>
   </div>
+
 
 </div>
 
@@ -71,6 +73,7 @@ menu: nav/home.html
     </div>
   </div>
 
+</div>
 </div>
 
 <script type="module">

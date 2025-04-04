@@ -4,7 +4,6 @@ title: Login
 permalink: /login
 search_exclude: true
 show_reading_time: false 
-hide: true
 ---
 
 <div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
