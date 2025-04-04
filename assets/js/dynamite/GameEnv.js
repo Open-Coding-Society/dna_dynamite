@@ -13,11 +13,11 @@ export class GameEnv {
     constructor() {
       throw new Error("GameEnv is a static class and cannot be instantiated.");
     }
-  
+
     static render(ctx) {
       for (let box of this.boxes) {
         box.draw(ctx);
-      }
+      } 
     }
   
     static initialize(canvas) {
@@ -158,8 +158,15 @@ export class GameEnv {
       this.lives = 3;
       this.score = 0; // Reset score
       this.gameOver = false;
-      this.updateHeartsDisplay();
+
+      this.updateHeartsDisplay(); // Reset heart UI
+
+    // ✅ Reset score (assumes you store it here)
+    this.score = 0;
+    const scoreElement = document.getElementById("score");
+    if (scoreElement) scoreElement.textContent = "0";
     }
+
   }
   
   export default GameEnv;

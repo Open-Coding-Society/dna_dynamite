@@ -1,12 +1,17 @@
 import GameSetup from './GameSetup.js';
 
 const Game = {
+  env: null,
+
   main(env) {
-    this.env = env;
-    GameSetup.start(env.gameCanvas);
+    this.env = env; // Store the environment, but don't start yet
   },
 
   start() {
+    if (!this.env) {
+      console.warn("Game environment not initialized.");
+      return;
+    }
     GameSetup.start(this.env.gameCanvas);
   },
 
