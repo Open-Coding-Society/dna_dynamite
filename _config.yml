@@ -1,9 +1,9 @@
-title: DNHS Flocker
-description: "Social Media for Del Norte High School"
-owner_name: John Mortensen
-github_username: nighthawkcoders
-github_repo: "flocker_frontend" 
-baseurl: "/flocker_frontend"
+title: DNA Dynamite
+description: "Illumina DNA Dynamite Game"
+owner_name: Team Smart Cells
+github_username: blackstar3092
+github_repo: "illumina_pc_frontend" 
+baseurl: "/dna_dynamite"
 future: true
 remote_theme: jekyll/minima
 minima:
@@ -19,3 +19,5 @@ header_pages:
   - navigation/gamerules.md
   - navigation/trivia_qs.md
   - navigation/unzip.md
+  - navigation/search.md
+  - navigation/blog.md

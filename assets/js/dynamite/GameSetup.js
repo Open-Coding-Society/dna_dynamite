@@ -1,38 +1,78 @@
 import GameEnv from "./GameEnv.js";
 
-const GameSetup = {
-  start: function (canvas) {
-    GameEnv.initialize(canvas);
+let intervalId = null;
+let animationFrameId = null;
+let canvasRef = null;
+let isRunning = false; // ✅ Add this
 
-    // Spawn a box every 1.5 seconds
-    setInterval(() => {
+const GameSetup = {
+  start(canvas) {
+    if (isRunning) return; // ✅ Prevent multiple starts
+    isRunning = true;
+  
+    canvasRef = canvas;
+    GameEnv.initialize(canvas);
+  
+    this.startSpawning();
+    this.startLoop();
+  
+    canvas.addEventListener("click", this.onClick);
+  },
+
+  startSpawning() {
+    if (intervalId) clearInterval(intervalId);
+    intervalId = setInterval(() => {
       if (!GameEnv.gameOver) {
         const boxHeight = 40;
         const box = new Box(
-          0, // x from left edge
-          GameEnv.innerHeight, // y from bottom
-          GameEnv.innerWidth, // full width of square
+          0,
+          GameEnv.innerHeight,
+          GameEnv.innerWidth,
           boxHeight,
-          -2 // uniform upward speed
+          -2
         );
         GameEnv.addBox(box);
       }
-    }, 1000); // 1 second interval for even spacing
-    
+    }, 1000);
+  },
 
-    canvas.addEventListener("click", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      GameEnv.handleClick(x, y);
-    });
-
-    function gameLoop() {
+  startLoop() {
+    const loop = () => {
       GameEnv.update();
-      requestAnimationFrame(gameLoop);
-    }
+      GameEnv.render(GameEnv.ctx); // optional: add a render method if you want separation
+      animationFrameId = requestAnimationFrame(loop);
+    };
+    loop();
+  },
 
-    gameLoop();
+  pause() {
+    if (intervalId) {
+      clearInterval(intervalId);
+      intervalId = null;
+    }
+    if (animationFrameId) {
+      cancelAnimationFrame(animationFrameId);
+      animationFrameId = null;
+    }
+    isRunning = false;
+  },
+
+  resume() {
+    if (!intervalId) this.startSpawning();
+    if (!animationFrameId) this.startLoop();
+  },
+
+  restart() {
+    this.pause();
+    GameEnv.reset(); // You'll need this in GameEnv.js
+    this.start(canvasRef);
+  },
+
+  onClick(e) {
+    const rect = canvasRef.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    GameEnv.handleClick(x, y);
   }
 };
 
