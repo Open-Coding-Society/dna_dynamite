@@ -82,14 +82,24 @@ export class GameEnv {
     }
   
     static updateHeartsDisplay() {
-      this.heartsContainer.innerHTML = "";
-      for (let i = 0; i < this.lives; i++) {
+      this.heartsContainer.innerHTML = ""; // Clear the current hearts display
+      
+        // Display the hearts
+      for (let i = 0; i < 3; i++) {
         const heart = document.createElement("span");
-        heart.innerHTML = "❤️";
-        heart.style.fontSize = "24px";
+      
+          // If the life is lost, use the broken heart emoji
+      if (i < this.lives) {
+        heart.innerHTML = "❤️"; // Healthy heart
+        } else {
+        heart.innerHTML = "💔"; // Broken heart when lives are lost
+        }
+      
+        heart.style.fontSize = "24px"; // Adjust the size of the hearts
         this.heartsContainer.appendChild(heart);
       }
     }
+      
   
     static resize() {
       this.initialize(this.canvas);
