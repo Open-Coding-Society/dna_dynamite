@@ -29,8 +29,8 @@ menu: nav/home.html
         <ul class="text-sm space-y-1 mt-1">
           <li><button id="startBtn" class="hover:underline">▶️ Start</button></li>
           <li><button id="pauseBtn" class="hover:underline">⏸️ Pause</button></li>
-          <li><button id="restartBtn" class="hover:underline">🔁 Restart</button></li>
           <li><button id="resumeBtn" class="hover:underline">⏩ Resume</button></li>
+          <li><button id="restartBtn" class="hover:underline">🔁 Restart</button></li>
         </ul>
       </div>
       <!-- Icons -->
