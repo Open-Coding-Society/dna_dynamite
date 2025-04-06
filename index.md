@@ -45,13 +45,24 @@ menu: nav/home.html
   <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
       <!-- Game Canvas -->
       <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
-
       <!-- Buckets at the bottom -->
-   <div id="bucketButtons" class="flex justify-center items-center gap-6 mb-6">
-        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">A</button>
-        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">T</button>
-        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">G</button>
-        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">C</button>
+      <div id="bucketButtons" class="flex justify-center items-center gap-6 mb-6 flex-wrap">
+      <!-- Button A -->
+      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
+        A
+      </button>
+      <!-- Button T -->
+      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
+        T
+      </button>
+      <!-- Button G -->
+      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
+        G
+      </button>
+      <!-- Button C -->
+      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
+        C
+      </button>
       </div>
     </div>
 
