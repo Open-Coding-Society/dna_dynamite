@@ -47,11 +47,11 @@ menu: nav/home.html
       <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
 
       <!-- Buckets at the bottom -->
-   <div id="bucketButtons" class="flex justify-center items-center gap-4 mt-2">
-        <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">A</button>
-        <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">T</button>
-        <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">G</button>
-        <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">C</button>
+   <div id="bucketButtons" class="flex justify-center items-center gap-6 mb-6">
+        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">A</button>
+        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">T</button>
+        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">G</button>
+        <button class="w-20 h-20 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">C</button>
       </div>
     </div>
 
