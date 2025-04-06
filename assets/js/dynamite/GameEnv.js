@@ -62,7 +62,7 @@ export class GameEnv {
         this.scoreContainer = document.createElement("div");
         this.scoreContainer.id = "scoreContainer";
         this.scoreContainer.style.position = "absolute";
-        this.scoreContainer.style.top = "170px"; // Position it below the hearts container
+        this.scoreContainer.style.top = "180px"; // Position it below the hearts container
         this.scoreContainer.style.left = "90%"; // Center horizontally
         this.scoreContainer.style.transform = "translateX(-50%)"; // Center horizontally with offset
         this.scoreContainer.style.fontSize = "24px";
