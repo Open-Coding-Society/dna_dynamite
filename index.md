@@ -42,12 +42,12 @@ menu: nav/home.html
     </div>
 
     <!-- Center Panel -->
-    <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
+  <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
       <!-- Game Canvas -->
-      <canvas id="gameCanvas" class="w-full max-w-[50vh] aspect-square"></canvas>
+      <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
 
       <!-- Buckets at the bottom -->
-      <div id="bucketButtons" class="flex justify-center items-center gap-4 mt-2">
+   <div id="bucketButtons" class="flex justify-center items-center gap-4 mt-2">
         <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">A</button>
         <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">T</button>
         <button class="w-14 h-14 text-xl font-bold bg-gray-800 rounded-lg shadow hover:bg-gray-700">G</button>
@@ -56,13 +56,13 @@ menu: nav/home.html
     </div>
 
     <!-- Right Panel -->
-    <div class="p-4 bg-gray-900 flex flex-col justify-between items-center">
+  <div class="p-4 bg-gray-900 flex flex-col justify-between items-center">
       <!-- Lives (dynamic) -->
       <div id="livesContainer" class="flex justify-center text-3xl space-x-2">
         <!-- GameEnv will populate this -->
       </div>
 
-      <div class="text-center">
+  <div class="text-center">
         <p class="font-bold">Trivia Accuracy</p>
         <p class="text-2xl mt-2" id="accuracy">✅ 90%</p>
       </div>
