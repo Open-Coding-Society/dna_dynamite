@@ -86,7 +86,7 @@ permalink: /trivia/
         <p id="score"></p>
     </div>
     <script>
-        const pythonURI = "http://172.19.255.157:8887"; // Replace with your actual backend URI
+        const pythonURI = "http://127.0.0.1:8887"; // Replace with your actual backend URI
         const fetchOptions = {
             method: "GET",
             headers: {
