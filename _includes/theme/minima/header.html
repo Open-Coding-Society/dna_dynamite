@@ -1,51 +1,61 @@
 <!-- This fragment overrides the default header provided by the remote minima theme to add support for login functionality. -->
-{% unless page.hide %}
-<header class="site-header bg-gray-900 py-4 relative z-50">
-  <div class="wrapper flex justify-between items-center">
-    <a class="site-title text-3xl font-semibold text-white" rel="author" href="{{ "/" | relative_url }}">
-      {{ site.title | escape }}
-    </a>
+<header class="site-header">
+  <div class="wrapper">
+    {%- assign default_paths = site.pages | map: "path" -%}
+    {%- assign page_paths = site.header_pages | default: default_paths -%}
+    {%- assign titles_size = site.pages | map: 'title' | join: '' | size -%}
+    <a class="site-title" rel="author" href="{{ "/" | relative_url }}">{{ site.title | escape }}</a>
 
-    <!-- Hamburger trigger (mobile) -->
-    <div class="relative md:hidden ml-auto pr-4">
-      <input type="checkbox" id="nav-toggle" class="hidden peer" />
-      <label for="nav-toggle" class="cursor-pointer z-50">
-        <svg viewBox="0 0 18 15" width="30" height="24">
-          <path fill="white" d="M18,1.5c0,0.8-0.7,1.5-1.5,1.5H1.5C0.7,3,0,2.3,0,1.5S0.7,0,1.5,0h15C17.3,0,18,0.7,18,1.5z 
-            M18,7.5c0,0.8-0.7,1.5-1.5,1.5H1.5C0.7,9,0,8.3,0,7.5S0.7,6,1.5,6h15C17.3,6,18,6.7,18,7.5z 
-            M18,13.5c0,0.8-0.7,1.5-1.5,1.5H1.5C0.7,15,0,14.3,0,13.5S0.7,12,1.5,12h15C17.3,12,18,12.7,18,13.5z"/>
-        </svg>
-      </label>
+    {%- if titles_size > 0 -%}
+      <nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
 
-      <!-- Slide-out menu -->
-      <div class="fixed top-0 left-0 h-full w-64 bg-gray-800 text-white transform -translate-x-full peer-checked:translate-x-0 transition-transform duration-300 ease-in-out z-40 p-6">
-        <div class="flex flex-col space-y-4 text-lg font-medium" data-baseurl="{{ site.baseurl }}">
-          {% for path in site.header_pages %}
-            {% assign my_page = site.pages | where: "path", path | first %}
-            {% if my_page.title %}
-              <a class="hover:bg-gray-700 p-2 rounded" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-            {% endif %}
-          {% endfor %}
-          <!-- Login or profile link dynamically updated by login.js -->
-          <a id="loginArea" href="{{ site.baseurl }}/login" class="hover:bg-gray-700 p-2 rounded">Login</a>
+        <!-- Adding the page menus as defined in _config.yml, plus adding Login -->
+        <div class="trigger" data-baseurl="{{ site.baseurl }}">
+          {%- for path in site.header_pages -%}
+            {%- assign my_page = site.pages | where: "path", path | first -%}
+            {%- if my_page.title -%}
+              <a class="page-link" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+          <a id="loginArea" href="{{ site.baseurl }}/login">Login</a>
         </div>
-      </div>
-    </div>
-
-    <!-- Desktop nav -->
-    <nav class="hidden md:flex space-x-6 items-center text-white font-medium" data-baseurl="{{ site.baseurl }}">
-      {% for path in site.header_pages %}
-        {% assign my_page = site.pages | where: "path", path | first %}
-        {% if my_page.title %}
-          <a class="hover:underline" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
-        {% endif %}
-      {% endfor %}
-      <!-- Login or profile link dynamically updated by login.js -->
-      <a id="loginArea" href="{{ site.baseurl }}/login" class="hover:underline">Login</a>
-    </nav>
+      </nav>
+    {%- endif -%}
   </div>
 </header>
 
 <!-- Load login.js script to handle user authentication status -->
 <script type="module" src="{{ site.baseurl }}/assets/js/api/login.js"></script>
-{% endunless %}
+
+<!-- Add this CSS to style and space out the links -->
+<style>
+  /* Add space between the links */
+  .site-nav .trigger a {
+    margin-right: 20px; /* Adjust the spacing as needed */
+  }
+
+  /* Optional: Add padding to links for extra space inside each link */
+  .site-nav .trigger a {
+    padding: 10px; /* Adjust the padding as needed */
+  }
+
+  /* Remove any background color or box shadow behind the links */
+  .site-nav .trigger a {
+    background: none;
+    box-shadow: none;
+  }
+
+  /* Also remove the outline (if it appears on focus) */
+  .site-nav .trigger a:focus {
+    outline: none;
+  }
+
+</style>
