@@ -37,25 +37,71 @@
 
 <!-- Add this CSS to style and space out the links -->
 <style>
-  /* Add space between the links */
-  .site-nav .trigger a {
-    margin-right: 20px; /* Adjust the spacing as needed */
+  .site-header {
+    background: transparent;
+    position: relative;
+    z-index: 10;
   }
 
-  /* Optional: Add padding to links for extra space inside each link */
   .site-nav .trigger a {
-    padding: 10px; /* Adjust the padding as needed */
-  }
-
-  /* Remove any background color or box shadow behind the links */
-  .site-nav .trigger a {
+    margin-right: 20px;
+    padding: 10px;
     background: none;
     box-shadow: none;
   }
 
-  /* Also remove the outline (if it appears on focus) */
   .site-nav .trigger a:focus {
     outline: none;
   }
 
+  .nav-trigger {
+    display: none;
+  }
+
+  .menu-icon {
+    display: none;
+    cursor: pointer;
+  }
+
+  /* Desktop view: show nav links inline */
+  .site-nav .trigger {
+    display: flex;
+    flex-direction: row;
+  }
+
+  @media screen and (max-width: 768px) {
+    /* Show hamburger icon on small screens */
+    .menu-icon {
+      display: inline-block;
+    }
+
+    /* Stack links vertically in hidden sidebar */
+    .site-nav .trigger {
+      position: fixed;
+      top: 0;
+      left: -100%;
+      width: 250px;
+      height: 100%;
+      background: rgb(18, 24, 38); ;  /* Matching bg-gray-900 color (#1f2937) */
+      color: white;  /* White text color */
+      flex-direction: column;
+      padding-top: 60px;
+      transition: left 0.3s ease;
+      z-index: 100;
+    }
+
+    /* Slide in menu when hamburger is checked */
+    .nav-trigger:checked ~ .trigger {
+      left: 0;
+    }
+
+    /* Style for mobile nav links */
+    .site-nav .trigger a {
+      display: block;
+      margin: 15px;
+      font-size: 18px;
+      color: white;  /* White text for the links */
+      padding: 12px;
+    }
+  }
 </style>
