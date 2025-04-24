@@ -84,6 +84,7 @@ permalink: /trivia/
         <div id="quiz-container"></div>
         <button onclick="submitQuiz()">Submit</button>
         <p id="score"></p>
+        <p id="accuracy"></p> <!-- Accuracy -->
     </div>
     <script>
         const pythonURI = "http://127.0.0.1:8887"; // Replace with your actual backend URI
@@ -95,6 +96,16 @@ permalink: /trivia/
         };
         let brokenHearts = 0;
         let selectedQuestions = [];
+        window.onload = function() {
+            // Retrieve correct and total answers from localStorage
+            const correctAnswers = localStorage.getItem("correctAnswers") || 0;
+            const totalAnswers = localStorage.getItem("totalAnswers") || 0;
+            if (totalAnswers > 0) {
+                const accuracyPercent = ((correctAnswers / totalAnswers) * 100).toFixed(1);
+                document.getElementById("accuracy").textContent = `Accuracy: ${accuracyPercent}%`;
+            }
+            // Check for a stored trivia question if needed (not implemented yet, but could be stored in localStorage)
+        };
         function breakHeart(index) {
             const hearts = document.querySelectorAll('.heart');
             if (!hearts[index].classList.contains('broken')) {
@@ -111,8 +122,9 @@ permalink: /trivia/
             fetch(`${pythonURI}/api/geneticstrivia`, fetchOptions)
                 .then(response => response.json())
                 .then(data => {
-                    if (data && data.question && data.answer_options && data.correct_answer) {
+                    if (data && data.question && data.answer_options && data.correct_answer && data.id) {
                         selectedQuestions = [{
+                            id: data.id,
                             q: data.question,
                             options: data.answer_options,
                             answer: data.correct_answer,
@@ -144,23 +156,52 @@ permalink: /trivia/
             });
         }
         function submitQuiz() {
-            let score = 0;
             selectedQuestions.forEach((question, index) => {
                 const selectedOption = document.querySelector(`input[name='q${index}']:checked`);
                 const feedback = document.getElementById(`feedback${index}`);
                 feedback.classList.remove("correct", "incorrect");
                 if (selectedOption) {
-                    if (selectedOption.value === question.answer) {
-                        score++;
-                        feedback.innerHTML = "<span class='correct'>Correct!</span>";
-                    } else {
-                        feedback.innerHTML = `<span class='incorrect'>Incorrect! The correct answer is: ${question.answer}. Explanation: ${question.explanation}</span>`;
-                    }
+                    const payload = {
+                        question_id: question.id,
+                        selected_answer: selectedOption.value
+                    };
+                    fetch(`${pythonURI}/api/submit_answer`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(payload)
+                    })
+                    .then(res => res.json())
+                    .then(data => {
+                        let correctAnswers = parseInt(localStorage.getItem("correctAnswers") || 0);
+                        let totalAnswers = parseInt(localStorage.getItem("totalAnswers") || 0);
+                        totalAnswers++;
+                        // If correct, increment correct answers
+                        if (data.is_correct) {
+                            correctAnswers++;
+                            feedback.innerHTML = "<span class='correct'>Correct!</span>";
+                        } else {
+                            feedback.innerHTML = `<span class='incorrect'>Incorrect! The correct answer is: ${data.correct_answer}. Explanation: ${data.explanation}</span>`;
+                        }
+                        // Store updated values in localStorage
+                        localStorage.setItem("correctAnswers", correctAnswers);
+                        localStorage.setItem("totalAnswers", totalAnswers);
+                        // Calculate and display updated accuracy
+                        const accuracyPercent = ((correctAnswers / totalAnswers) * 100).toFixed(1);
+                        document.getElementById("accuracy").textContent = `Accuracy: ${accuracyPercent}%`;
+                        // Display updated score
+                        document.getElementById("score").textContent = `Your score: ${correctAnswers}/${totalAnswers}`;
+                    })
+                    .catch(err => {
+                        feedback.innerHTML = "<span class='incorrect'>Error submitting answer.</span>";
+                        console.error("Submit error:", err);
+                    });
                 } else {
                     feedback.innerHTML = `<span class='incorrect'>No answer choice selected. The answer is: ${question.answer}</span>`;
                 }
             });
-            document.getElementById("score").textContent = `Your score: ${score}/${selectedQuestions.length}`;
         }
     </script>
 </html>
+
