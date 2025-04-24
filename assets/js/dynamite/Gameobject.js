@@ -1,4 +1,3 @@
-
 import GameEnv from './GameEnv.js';
 import Socket from './Multiplayer.js';
 
