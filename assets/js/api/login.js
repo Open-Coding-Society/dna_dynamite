@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log("Credentials data:", data); // Debugging line
             const loginArea = document.getElementById('loginArea');
             if (data) { // Update the login area based on the data
-                loginArea.innerHTML = `<a href="${baseurl}/login">${data.name}</a>`;
+                loginArea.innerHTML = `<a href="${baseurl}/profile">${data.name}</a>`;
                 localStorage.setItem('authenticated', 'true'); // Set authenticated status in local storage
             } else {
                 // User is not authenticated, then "Login" link is shown
