@@ -142,9 +142,4 @@ show_reading_time: false
                 const errorMsg = `Python Database Error: ${error.message}`;
             });
     }
-
-    // Call relevant database functions on the page load
-    window.onload = function() {
-         pythonDatabase();
-    };
 </script>

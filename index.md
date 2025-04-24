@@ -32,6 +32,9 @@ menu: nav/home.html
             <li><button id="resumeBtn" class="hover:underline">⏩ Resume</button></li>
             <li><button id="restartBtn" class="hover:underline">🔁 Restart</button></li>
           </ul>
+          <li id="deleteScoreLi" style="display: none;">
+            <button id="deleteScoreBtn" class="hover:underline text-red-400">🗑️ Delete Score</button>
+          </li>
         </div>
         <!-- Icons -->
         <div class="flex gap-4 mt-6 text-sm text-blue-400 underline">
@@ -118,4 +121,22 @@ menu: nav/home.html
   }
 
   fetchUserInfo();
+
+  function fetchAndDisplayHighScore() {
+    fetch(`${pythonURI}/api/score/user`, fetchOptions)
+      .then(response => {
+        if (!response.ok) throw new Error("Failed to fetch high score");
+        return response.json();
+      })
+      .then(data => {
+        const highScoreEl = document.getElementById("highScore");
+        highScoreEl.textContent = data.score ?? 0;
+      })
+      .catch(err => {
+        console.warn("Could not load high score:", err.message);
+      });
+  }
+
+  fetchAndDisplayHighScore();
+
 </script>

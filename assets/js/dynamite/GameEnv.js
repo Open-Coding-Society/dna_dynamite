@@ -1,3 +1,6 @@
+import { submitHighScore } from './ScoreAPI.js';
+import { pythonURI, javaURI, fetchOptions } from '../api/config.js';
+
 export class GameEnv {
     static boxes = [];
     static canvas = null;
@@ -129,9 +132,11 @@ export class GameEnv {
     }
   
     static endGame() {
-      this.gameOver = true;
-      alert("Game Over!");
-    }
+  this.gameOver = true;
+  alert("Game Over!");
+
+  submitHighScore(this.score, fetchOptions, pythonURI);
+}
   
     static addBox(box) {
       this.boxes.push(box);
