@@ -6,41 +6,39 @@ search_exclude: true
 show_reading_time: false 
 ---
 
-<div class="min-h-screen bg-gray-100 flex items-center justify-center px-4 py-12">
+<div class="min-h-screen bg-black flex items-center justify-center px-4 py-12">
   <div class="grid grid-cols-1 md:grid-cols-2 gap-10 w-full max-w-5xl">
-    
     <!-- Login Card -->
-    <div class="bg-white rounded-lg shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-6">User Login (Python/Flask)</h2>
+    <div class="bg-blue-900 rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold mb-6 text-white">User Login (Python/Flask)</h2>
       <form id="pythonForm" onsubmit="pythonLogin(); return false;" class="space-y-5">
         <div>
-          <label for="uid" class="block text-gray-700 font-semibold mb-1">GitHub ID</label>
-          <input type="text" id="uid" name="uid" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+          <label for="uid" class="block text-gray-300 font-semibold mb-1">GitHub ID</label>
+          <input type="text" id="uid" name="uid" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300 text-black">
         </div>
         <div>
-          <label for="password" class="block text-gray-700 font-semibold mb-1">Password</label>
-          <input type="password" id="password" name="password" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300">
+          <label for="password" class="block text-gray-300 font-semibold mb-1">Password</label>
+          <input type="password" id="password" name="password" required class="w-full p-2 border rounded-md focus:ring focus:ring-blue-300 text-black">
         </div>
         <button type="submit" class="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition">Login</button>
         <p id="message" class="text-red-600 text-sm font-medium"></p>
       </form>
     </div>
-
     <!-- Signup Card -->
-    <div class="bg-white rounded-lg shadow-lg p-8">
-      <h2 class="text-2xl font-bold mb-6">Sign Up</h2>
+    <div class="bg-blue-900 rounded-lg shadow-lg p-8">
+      <h2 class="text-2xl font-bold mb-6 text-white">Sign Up</h2>
       <form id="signupForm" onsubmit="signup(); return false;" class="space-y-5">
         <div>
-          <label for="name" class="block text-gray-700 font-semibold mb-1">Name</label>
-          <input type="text" id="name" name="name" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+          <label for="name" class="block text-gray-300 font-semibold mb-1">Name</label>
+          <input type="text" id="name" name="name" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300 text-black">
         </div>
         <div>
-          <label for="signupUid" class="block text-gray-700 font-semibold mb-1">GitHub ID</label>
-          <input type="text" id="signupUid" name="signupUid" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+          <label for="signupUid" class="block text-gray-300 font-semibold mb-1">GitHub ID</label>
+          <input type="text" id="signupUid" name="signupUid" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300 text-black">
         </div>
         <div>
-          <label for="signupPassword" class="block text-gray-700 font-semibold mb-1">Password</label>
-          <input type="password" id="signupPassword" name="signupPassword" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300">
+          <label for="signupPassword" class="block text-gray-300 font-semibold mb-1">Password</label>
+          <input type="password" id="signupPassword" name="signupPassword" required class="w-full p-2 border rounded-md focus:ring focus:ring-green-300 text-black">
         </div>
         <button type="submit" class="w-full bg-green-600 text-white py-2 rounded-md hover:bg-green-700 transition">Sign Up</button>
         <p id="signupMessage" class="text-green-600 text-sm font-medium"></p>
@@ -48,14 +46,12 @@ show_reading_time: false
     </div>
     <!-- Return Home Button -->
     <div class="w-full text-center mt-8">
-    <a href="{{ site.baseurl }}/" class="inline-block bg-gray-300 text-gray-800 px-4 py-2 rounded hover:bg-gray-400 transition">
+    <a href="{{ site.baseurl }}/" class="inline-block bg-blue-800 text-gray-300 px-4 py-2 rounded hover:bg-blue-700 transition">
         ⬅️ Return to Home
     </a>
     </div>
-
   </div>
 </div>
-
 
 <script type="module">
     import { login, pythonURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
@@ -121,7 +117,6 @@ show_reading_time: false
         signupButton.style.backgroundColor = ''; // Reset to default color
     });
 }
-
 
     // Function to fetch and display Python data
     function pythonDatabase() {
