@@ -47,10 +47,10 @@ permalink: /dna_unzip/
       outline: none;
     }
 
-    .base.left { background: lightblue; }
-    .base.right { background: lightcoral; }
-    .gap.left { background: yellow; border: 2px dashed black; }
-    .gap.right { background: yellow; border: 2px dashed black; }
+    .base.left { background: #0000b3; }
+    .base.right { background: #ac3973; }
+    .gap.left { background: #e6e600; border: 2px dashed black; }
+    .gap.right { background: #e6e600; border: 2px dashed black; }
   </style>
 </head>
 <body>
@@ -98,11 +98,22 @@ permalink: /dna_unzip/
         let gap = document.getElementById(gapId);
         let userInput = gap.textContent.trim().toUpperCase();
 
-        // Clean and restrict to 1 capital letter
+        // Restrict to 1 letter max
         if (userInput.length > 1) userInput = userInput[0];
         gap.textContent = userInput;
 
-        if (userInput !== correctPairs[gapId]) {
+        // Compare and apply style
+        if (userInput === correctPairs[gapId]) {
+          gap.style.backgroundColor = "green";
+          gap.style.color = "white";
+        } else if (userInput.length === 0) {
+          // Reset if empty
+          gap.style.backgroundColor = "blue";
+          gap.style.color = "black";
+          isComplete = false;
+        } else {
+          gap.style.backgroundColor = "red";
+          gap.style.color = "white";
           isComplete = false;
         }
       }

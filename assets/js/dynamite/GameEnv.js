@@ -115,18 +115,34 @@ export class GameEnv {
   
       for (let i = this.boxes.length - 1; i >= 0; i--) {
         const box = this.boxes[i];
-        box.update();
-        box.draw(this.ctx);
-  
-        if (box.y + box.height < 0) {
+        box.y -= 0.5; // adjust speed here
+      
+        // Move the DOM element
+        if (box.element) {
+          box.element.style.top = box.y + "px";
+          const strand = box.element.querySelector(".dna-container");
+          if (strand && strand.isComplete && strand.isComplete()) {
+            // ✅ COMPLETED
+            box.element.remove();         // remove from screen
+            this.boxes.splice(i, 1);      // remove from tracking array
+            this.score++;                 // update score
+            this.updateScoreDisplay();    // refresh UI
+            continue;                     // skip further processing for this box
+          }
+        }
+      
+        // Remove if off-screen
+        if (box.y + box.element.offsetHeight < 0) {
           this.boxes.splice(i, 1);
+          if (box.element) box.element.remove();
+      
           this.lives--;
           this.updateHeartsDisplay();
           if (this.lives <= 0) {
             this.endGame();
           }
         }
-      }
+      }      
   
       this.updateScoreDisplay();
     }
@@ -140,7 +156,48 @@ export class GameEnv {
   
     static addBox(box) {
       this.boxes.push(box);
+      const container = document.getElementById("gameContainer");
+      const containerRect = container.getBoundingClientRect();
+      const scrollTop = window.scrollY || window.pageYOffset;
+      const containerTop = containerRect.top + scrollTop;
+      const containerHeight = container.offsetHeight;
+      
+      const dnaBoxHeight = 220; // or however tall your box actually is
+      box.y = containerTop + containerHeight - dnaBoxHeight; // place the bottom row at the line
+      // ✅ Set initial Y position to the bottom of the container relative to the page
+      //box.y = containerTop + containerHeight - 60; // 130 = height of DNA box
+      
+      box.x = Math.random() * 60; // for variability
+
+      // Create visual representation on screen
+      const visualBox = document.createElement("div");
+      // Example visual box creation
+      visualBox.classList.add("dna-box");
+      visualBox.style.position = "absolute";
+      visualBox.style.top = "0px"; // will be updated by GameEnv.update()
+      visualBox.style.left = "50%"; // center horizontally
+      visualBox.style.transform = "translateX(-50%)"; // fix true centering
+      visualBox.style.zIndex = "10"; // make sure it's above canvas      
+      visualBox.style.width = "220px";
+      visualBox.style.height = "130px";
+      visualBox.style.backgroundColor = "transparent";
+      visualBox.style.border = "none";
+      visualBox.style.padding = "0";      
+      visualBox.style.borderRadius = "8px";
+      visualBox.style.display = "flex";
+      visualBox.style.justifyContent = "center";
+
+      // Add DNA strand
+      const dnaPuzzle = createDnaPuzzleElement();
+      visualBox.appendChild(dnaPuzzle);
+
+      // Append to game container
+      document.getElementById("gameContainer").appendChild(visualBox);
+
+      // Optional: link to the box object if needed
+      box.element = visualBox;
     }
+
   
     static handleClick(x, y) {
       for (let i = this.boxes.length - 1; i >= 0; i--) {
@@ -159,19 +216,77 @@ export class GameEnv {
     }
   
     static reset() {
+      // Remove all DNA elements from DOM
+      for (let box of this.boxes) {
+        if (box.element && box.element.parentNode) {
+          box.element.parentNode.removeChild(box.element);
+        }
+      }
+    
+      // Clear box tracking
       this.boxes = [];
+    
+      // Reset game state
       this.lives = 3;
-      this.score = 0; // Reset score
+      this.score = 0;
       this.gameOver = false;
-
-      this.updateHeartsDisplay(); // Reset heart UI
-
-    // ✅ Reset score (assumes you store it here)
-    this.score = 0;
-    const scoreElement = document.getElementById("score");
-    if (scoreElement) scoreElement.textContent = "0";
+    
+      // Reset visuals
+      this.updateHeartsDisplay();
+      this.updateScoreDisplay();
+    
+      const scoreElement = document.getElementById("score");
+      if (scoreElement) scoreElement.textContent = "0";
     }
+    
+  }
+  
+  function createDnaPuzzleElement() {
+    const template = document.getElementById("dna-strand-template");
+    const clone = template.content.cloneNode(true);
+  
+    // Store a reference to this specific strand element
+    const strandElement = clone.querySelector(".dna-container");
 
+    // Attach custom function to the element
+    strandElement.isComplete = function () {
+      const gaps = this.querySelectorAll(".gap");
+      for (const gap of gaps) {
+        const val = gap.textContent.trim().toUpperCase();
+        const answer = gap.getAttribute("data-answer");
+        if (val !== answer) return false;
+      }
+      return true;
+    };
+
+    clone.querySelectorAll(".gap").forEach(gap => {
+      gap.addEventListener("input", () => {
+        setTimeout(() => {
+          const input = gap.textContent.trim().toUpperCase().slice(0, 1);
+          gap.textContent = input;
+  
+          const correct = gap.getAttribute("data-answer");
+          if (input === correct) {
+            gap.style.backgroundColor = "green";
+            gap.style.color = "white";
+          } else if (input.length === 0) {
+            gap.style.backgroundColor = "#e6e600"; // yellow
+            gap.style.color = "black";
+          } else {
+            gap.style.backgroundColor = "red";
+            gap.style.color = "white";
+          }
+        }, 0);
+      });
+  
+      gap.addEventListener("keydown", (e) => {
+        if (!["A", "T", "C", "G"].includes(e.key.toUpperCase()) && e.key.length === 1) {
+          e.preventDefault();
+        }
+      });
+    });
+  
+    return clone;
   }
   
   export default GameEnv;

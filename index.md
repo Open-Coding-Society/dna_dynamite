@@ -48,25 +48,6 @@ menu: nav/home.html
   <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
       <!-- Game Canvas -->
       <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
-      <!-- Buckets at the bottom -->
-      <div id="bucketButtons" class="flex justify-center items-center gap-6 mb-6 flex-wrap">
-      <!-- Button A -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        A
-      </button>
-      <!-- Button T -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        T
-      </button>
-      <!-- Button G -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        G
-      </button>
-      <!-- Button C -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        C
-      </button>
-      </div>
     </div>
 
     <!-- Right Panel -->
@@ -201,6 +182,77 @@ menu: nav/home.html
     border-radius: 5px;
     cursor: pointer;
   }
+
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+  }
+
+  .dna-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .strand {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* spacing between each base/gap */
+    margin-bottom: 10px;
+  }
+
+  .base, .gap {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+  }
+
+  /* Top bases (blue) */
+  .base.left {
+    background-color: #0000b3;
+    color: white;
+  }
+
+  /* Bottom bases (pink) */
+  .base.right {
+    background-color: #ac3973;
+    color: white;
+  }
+
+  /* Editable yellow circles */
+  .gap.left,
+  .gap.right {
+    background-color: #e6e600;
+    border: 2px dashed black;
+    color: black;
+  }
+
+  .gap.correct {
+    background-color: green;
+    color: white;
+  }
+
+  .gap.wrong {
+    background-color: red;
+    color: white;
+  }
+
+.dna-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
 </style>
 
 <script>
@@ -217,3 +269,33 @@ menu: nav/home.html
   // Show popup on page load
   window.onload = openPopup;
 </script>
+
+<template id="dna-strand-template">
+  <div class="dna-container">
+    <div class="strand top-strand">
+      <div class="base left">A</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">G</div>
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="G" contenteditable="true"></div>
+      <div class="base left">T</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="T" contenteditable="true"></div>
+      <div class="base left">G</div>
+    </div>
+    <div class="strand bottom-strand">
+      <div class="gap right" data-answer="T" contenteditable="true"></div>
+      <div class="base right">T</div>
+      <div class="base right">C</div>
+      <div class="gap right" data-answer="G" contenteditable="true"></div>
+      <div class="base right">C</div>
+      <div class="base right">A</div>
+      <div class="base right">T</div>
+      <div class="gap right" data-answer="G" contenteditable="true"></div>
+      <div class="base right">A</div>
+      <div class="base right">C</div>
+    </div>
+  </div>
+</template>
+
