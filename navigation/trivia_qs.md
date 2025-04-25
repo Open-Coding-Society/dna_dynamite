@@ -202,6 +202,6 @@ permalink: /trivia/
                 }
             });
         }
+window.fetchRandomQuestion = fetchRandomQuestion;
     </script>
 </html>
-
