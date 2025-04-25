@@ -39,7 +39,7 @@ menu: nav/home.html
         <!-- Icons -->
         <div class="flex gap-4 mt-6 text-sm text-blue-400 underline">
           <a href="{{ site.baseurl }}/profile" title="Profile">Settings</a>
-          <a href="{{ site.baseurl }}/instructions" title="Help">Help</a>
+          <a href="javascript:void(0);" onclick="openPopup()" title="Help">Help</a>
         </div>
       </div>
     </div>
@@ -48,25 +48,6 @@ menu: nav/home.html
   <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
       <!-- Game Canvas -->
       <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
-      <!-- Buckets at the bottom -->
-      <div id="bucketButtons" class="flex justify-center items-center gap-6 mb-6 flex-wrap">
-      <!-- Button A -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        A
-      </button>
-      <!-- Button T -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        T
-      </button>
-      <!-- Button G -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        G
-      </button>
-      <!-- Button C -->
-      <button class="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 text-2xl font-bold bg-gray-800 rounded-xl shadow hover:bg-gray-700">
-        C
-      </button>
-      </div>
     </div>
 
     <!-- Right Panel -->
@@ -140,3 +121,181 @@ menu: nav/home.html
   fetchAndDisplayHighScore();
 
 </script>
+
+<div id="overlay"></div>
+
+<div id="popup">
+  <h2>Welcome to DNA Dynamite</h2>
+  <p>
+    Here are the instructions to play:<br><br>
+    Type the base pairs in the Bank of Bases to their corresponding spots on DNA to complete the strands.
+    If the strand disappears before it's completed, you lose one life.
+    If you lose three lives, you must answer 3 trivia questions to revive and keep playing.<br><br>
+
+    <B>Base Pair Rules/Key:</B><br>
+    - Adenine pairs with Thymine <br>
+    - Guanine pairs with Cytosine
+  </p>
+  <button onclick="closePopup()">OK</button>
+</div>
+
+<style>
+  #popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #6A3946;
+    padding: 20px;
+    border: 2px solid black;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+    display: none;
+    z-index: 1000;
+  }
+
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+  }
+
+  #popup button {
+    margin-top: 10px;
+    padding: 5px 10px;
+  }
+
+   #showPopup:hover {
+    background-color: #6A3946; /* Darker pink on hover */
+  }
+
+
+  #showPopup {
+    background-color: #007bff;
+    color: #6A3946;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+  }
+
+  .dna-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .strand {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* spacing between each base/gap */
+    margin-bottom: 10px;
+  }
+
+  .base, .gap {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+  }
+
+  /* Top bases (blue) */
+  .base.left {
+    background-color: #0000b3;
+    color: white;
+  }
+
+  /* Bottom bases (pink) */
+  .base.right {
+    background-color: #ac3973;
+    color: white;
+  }
+
+  /* Editable yellow circles */
+  .gap.left,
+  .gap.right {
+    background-color: #e6e600;
+    border: 2px dashed black;
+    color: black;
+  }
+
+  .gap.correct {
+    background-color: green;
+    color: white;
+  }
+
+  .gap.wrong {
+    background-color: red;
+    color: white;
+  }
+
+.dna-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+</style>
+
+<script>
+  function openPopup() {
+    document.getElementById("popup").style.display = "block";
+    document.getElementById("overlay").style.display = "block";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("overlay").style.display = "none";
+  }
+
+  // Show popup on page load
+  window.onload = openPopup;
+</script>
+
+<template id="dna-strand-template">
+  <div class="dna-container">
+    <div class="strand top-strand">
+      <div class="base left">A</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">G</div>
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="G" contenteditable="true"></div>
+      <div class="base left">T</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="T" contenteditable="true"></div>
+      <div class="base left">G</div>
+    </div>
+    <div class="strand bottom-strand">
+      <div class="gap right" data-answer="T" contenteditable="true"></div>
+      <div class="base right">T</div>
+      <div class="base right">C</div>
+      <div class="gap right" data-answer="G" contenteditable="true"></div>
+      <div class="base right">C</div>
+      <div class="base right">A</div>
+      <div class="base right">T</div>
+      <div class="gap right" data-answer="G" contenteditable="true"></div>
+      <div class="base right">A</div>
+      <div class="base right">C</div>
+    </div>
+  </div>
+</template>
+

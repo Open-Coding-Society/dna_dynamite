@@ -4,6 +4,8 @@ let intervalId = null;
 let animationFrameId = null;
 let canvasRef = null;
 let isRunning = false; // ✅ Add this
+let strandCount = 0;
+let currentInterval = 8000; // starting interval (8 seconds)
 
 const GameSetup = {
   start(canvas) {
@@ -21,21 +23,37 @@ const GameSetup = {
 
   startSpawning() {
     if (intervalId) clearInterval(intervalId);
-    intervalId = setInterval(() => {
-      if (!GameEnv.gameOver) {
-        const boxHeight = 40;
-        const box = new Box(
-          0,
-          GameEnv.innerHeight,
-          GameEnv.innerWidth,
-          boxHeight,
-          -2
-        );
-        GameEnv.addBox(box);
-      }
-    }, 1000);
+  
+    // Spawn one immediately
+    this.spawnStrand();
+  
+    // Start interval
+    intervalId = setInterval(() => this.spawnStrand(), currentInterval);
   },
-
+  
+  spawnStrand() {
+    if (GameEnv.gameOver) return;
+  
+    const boxHeight = 40;
+    const box = new Box(
+      0,
+      GameEnv.innerHeight,
+      GameEnv.innerWidth,
+      boxHeight,
+      -2
+    );
+    GameEnv.addBox(box);
+    strandCount++;
+  
+    // Increase speed every 5 strands
+    if (strandCount % 5 === 0 && currentInterval > 2000) {
+      currentInterval -= 1000; // decrease interval (increase speed)
+      clearInterval(intervalId);
+      intervalId = setInterval(() => this.spawnStrand(), currentInterval);
+      console.log(`Increased speed! New interval: ${currentInterval / 1000}s`);
+    }
+  },
+  
   startLoop() {
     const loop = () => {
       GameEnv.update();
@@ -92,8 +110,8 @@ class Box {
   }
 
   draw(ctx) {
-    ctx.fillStyle = this.color;
-    ctx.fillRect(this.x, this.y, this.width, this.height);
+    // ctx.fillStyle = this.color;
+    // ctx.fillRect(this.x, this.y, this.width, this.height);
   }
 }
 

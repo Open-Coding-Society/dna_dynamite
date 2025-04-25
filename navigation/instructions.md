@@ -17,10 +17,11 @@ Welcome to DNA Dynamite! Click the button below to view the instructions.
   <h2>Welcome to DNA Dynamite</h2>
   <p>
     Here are the instructions to play:<br><br>
-    Drag and drop the base pairs in the Bank of Bases to their corresponding spots on DNA to complete the strands.
+    Type the base pairs in the Bank of Bases to their corresponding spots on DNA to complete the strands.
     If the strand disappears before it's completed, you lose one life.
     If you lose three lives, you must answer 3 trivia questions to revive and keep playing.<br><br>
-    **Base Pair Rules/Key:**<br>
+
+    <B>Base Pair Rules/Key:</B><br>
     - Adenine pairs with Thymine <br>
     - Guanine pairs with Cytosine
   </p>
@@ -33,7 +34,7 @@ Welcome to DNA Dynamite! Click the button below to view the instructions.
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: #d81b60;
+    background-color: #6A3946;
     padding: 20px;
     border: 2px solid black;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
@@ -58,13 +59,13 @@ Welcome to DNA Dynamite! Click the button below to view the instructions.
   }
 
    #showPopup:hover {
-    background-color: #ff1493; /* Darker pink on hover */
+    background-color: #6A3946; /* Darker pink on hover */
   }
 
 
   #showPopup {
     background-color: #007bff;
-    color: #d81b60;
+    color: #6A3946;
     padding: 10px 15px;
     border: none;
     border-radius: 5px;
