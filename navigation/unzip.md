@@ -4,86 +4,135 @@ title: DNA Unzipping
 search_exclude: true
 permalink: /dna_unzip/
 ---
+<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/interact.js/1.10.11/interact.min.js"></script>
-    <style>
-        body { text-align: center; font-family: Arial, sans-serif; background-color: #f4f4f4; }
-        .dna-container { display: flex; flex-direction: column; justify-content: center; align-items: center; position: relative; height: 300px; }
-        .strand { display: flex; justify-content: center; align-items: center; position: relative; transition: transform 1s ease-in-out; }
-        .base { width: 50px; height: 50px; text-align: center; line-height: 50px;
-                border-radius: 50%; font-size: 20px; font-weight: bold; margin: 5px; }
-        .left { background: lightblue; }
-        .right { background: lightcoral; }
-        .gap { border: 2px dashed black; background: yellow; cursor: pointer; width: 50px; height: 50px; }
-        .draggable { background: lightgreen; cursor: grab; display: inline-block; padding: 10px; margin: 10px; border-radius: 10px; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Interactive DNA Helix</title>
+  <style>
+    body {
+      text-align: center;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: white;
+    }
+
+    .dna-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      height: 300px;
+    }
+
+    .strand {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin-bottom: 10px;
+    }
+
+    .base, .gap {
+      width: 50px;
+      height: 50px;
+      text-align: center;
+      line-height: 50px;
+      border-radius: 50%;
+      font-size: 20px;
+      font-weight: bold;
+      margin: 5px;
+      outline: none;
+    }
+
+    .base.left { background: lightblue; }
+    .base.right { background: lightcoral; }
+    .gap.left { background: yellow; border: 2px dashed black; }
+    .gap.right { background: yellow; border: 2px dashed black; }
+  </style>
 </head>
 <body>
-    <h1>Interactive DNA Helix</h1>
-    <div class="dna-container">
-        <div class="strand" id="top-strand">
-            <div class="base left">A</div>
-            <div class="gap left" id="gap1"></div>
-            <div class="base left">C</div>
-            <div class="base left">G</div>
-            <div class="gap left" id="gap2"></div>
-            <div class="base left">T</div>
-        </div>
-        <div class="strand" id="bottom-strand">
-            <div class="gap right" id="gap3"></div>
-            <div class="base right">T</div>
-            <div class="gap right" id="gap4"></div>
-            <div class="base right">G</div>
-            <div class="base right">A</div>
-            <div class="gap right" id="gap5"></div>
-        </div>
+  <h1>Interactive DNA Helix</h1>
+
+  <div class="dna-container">
+    <div class="strand" id="top-strand">
+      <div class="base left">A</div>
+      <div class="gap left" id="gap1" contenteditable="true"></div>
+      <div class="base left">C</div>
+      <div class="base left">G</div>
+      <div class="gap left" id="gap2" contenteditable="true"></div>
+      <div class="base left">T</div>
     </div>
-    <h3>Drag Bases to Fill the Gaps</h3>
-    <div class="draggable" id="T" draggable="true">T</div>
-    <div class="draggable" id="A" draggable="true">A</div>
-    <div class="draggable" id="C" draggable="true">C</div>
-    <div class="draggable" id="G" draggable="true">G</div>
+
+    <div class="strand" id="bottom-strand">
+      <div class="gap right" id="gap3" contenteditable="true"></div>
+      <div class="base right">T</div>
+      <div class="gap right" id="gap4" contenteditable="true"></div>
+      <div class="base right">C</div>
+      <div class="base right">A</div>
+      <div class="gap right" id="gap5" contenteditable="true"></div>
+    </div>
+  </div>
+
+  <h3>Type Bases Into the Gaps</h3>
+
+  <script>
+   const correctPairs = {
+    gap1: "A", // T on bottom, so top must be A
+    gap2: "T", // A on bottom, so top must be T
+    gap3: "T", // A on top, so bottom must be T
+    gap4: "G", // C on top, so bottom must be G
+    gap5: "A"  // T on top, so bottom must be A
+    };
+
     
-    <script>
-        // Function to unzip the DNA strands
-        function unzipDNA() {
-            gsap.to("#top-strand", { y: -50, duration: 1 });
-            gsap.to("#bottom-strand", { y: 50, duration: 1 });
+
+    let complete = 0;
+
+    function checkCompletion() {
+      let isComplete = true;
+
+      for (let gapId in correctPairs) {
+        let gap = document.getElementById(gapId);
+        let userInput = gap.textContent.trim().toUpperCase();
+
+        // Clean and restrict to 1 capital letter
+        if (userInput.length > 1) userInput = userInput[0];
+        gap.textContent = userInput;
+
+        if (userInput !== correctPairs[gapId]) {
+          isComplete = false;
         }
-        
-        // Automatically unzip DNA once the page loads
-        window.onload = function() {
-            unzipDNA();
-        };
-        
-        interact(".draggable").draggable({
-            inertia: true,
-            autoScroll: true,
-            listeners: {
-                move(event) {
-                    event.target.style.transform = `translate(${event.pageX - 50}px, ${event.pageY - 50}px)`;
-                }
-            }
-        });
-        
-        interact(".gap").dropzone({
-            accept: ".draggable",
-            ondrop(event) {
-                let base = event.relatedTarget.innerText;
-                let correctPairs = {
-                    gap1: "T", gap2: "A", gap3: "A", gap4: "C", gap5: "T"
-                };
-                if (correctPairs[event.target.id] === base) {
-                    event.target.innerText = base;
-                    event.relatedTarget.remove();
-                }
-            }
-        });
-    </script>
+      }
+
+      complete = isComplete ? 1 : 0;
+      console.log("Complete:", complete);
+    }
+
+    // Update validation on every keystroke
+    Object.keys(correctPairs).forEach(id => {
+      const gap = document.getElementById(id);
+      
+      gap.addEventListener("input", () => {
+        // Delay so DOM finishes rendering input
+        setTimeout(() => checkCompletion(), 0);
+      });
+
+      gap.addEventListener("keydown", (e) => {
+        // Allow only A, T, C, G, and basic keys
+        if (!["A", "T", "C", "G"].includes(e.key.toUpperCase()) && e.key.length === 1) {
+          e.preventDefault();
+        }
+      });
+    });
+
+    // Optional animation on load
+    window.onload = () => {
+      document.getElementById("top-strand").style.transform = "translateY(-30px)";
+      document.getElementById("bottom-strand").style.transform = "translateY(30px)";
+    };
+  </script>
 </body>
 </html>
-
