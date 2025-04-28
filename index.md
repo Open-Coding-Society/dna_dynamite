@@ -124,34 +124,125 @@ menu: nav/home.html
 
 <div id="overlay"></div>
 
-<div id="popup">
-  <h2>Welcome to DNA Dynamite</h2>
-  <p>
-    Here are the instructions to play:<br><br>
-    Type the base pairs in the Bank of Bases to their corresponding spots on DNA to complete the strands.
-    If the strand disappears before it's completed, you lose one life.
-    If you lose three lives, you must answer 3 trivia questions to revive and keep playing.<br><br>
+<div id="popup" style="display: none;">
+  <!-- Exit button -->
+  <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; font-size: 20px; background: none; border: none; cursor: pointer;">✖</button>
 
-    <B>Base Pair Rules/Key:</B><br>
-    - Adenine pairs with Thymine <br>
-    - Guanine pairs with Cytosine
-  </p>
-  <button onclick="closePopup()">OK</button>
+  <div class="popup-page" id="page-1">
+    <h2>Welcome to DNA Dynamite!</h2>
+    <p>
+      DNA is made up of four bases—Adenine (A), Thymine (T), Cytosine (C), and Guanine (G)—which pair specifically: A with T, and C with G. This base pairing is the foundation of DNA structure and how it's copied during replication. Illumina uses this exact principle in its DNA sequencing technology. By reading the order of these base pairs, Illumina’s machines can decode entire genomes. This helps scientists and doctors understand genetics better, leading to breakthroughs in research, diagnostics, and personalized medicine.
+    </p>
+    <p>
+      Let's get to know these base pairings more by playing DNA Dynamite!
+    </p>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button style="visibility: hidden;">Back</button> <!-- Hidden Back button on first page -->
+      <button onclick="nextPage(2)">Next</button>
+    </div>
+  </div>
+  
+  <div class="popup-page" id="page-2" style="display: none;">
+    <h2>How to Play</h2>
+    <p>
+      <img src="{{ site.baseurl }}/images/dna-dynamite/dnaexample.png" alt="DNA Strand" style="max-width: 100%; height: auto; margin-bottom: 20px;" />
+      Type in the correct base in the yellow gaps as the strands move off the screen!
+    </p>
+    <p>
+      - Adenine pairs with Thymine<br>
+      - Guanine pairs with Cytosine
+    </p>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button onclick="prevPage(1)">Back</button>
+      <button onclick="nextPage(3)">Next</button>
+    </div>
+  </div>
+
+  <div class="popup-page" id="page-3" style="display: none;">
+    <h2>How to Play</h2>
+    <p>
+      <img src="{{ site.baseurl }}/images/dna-dynamite/wrongdna.png" alt="wrong DNA Strand" style="max-width: 100%; height: auto; margin-bottom: 20px;" />
+      If you type in the correct base, the gap turns green. If the base is wrong, the gap turns red meaning that you have to quickly put the correct base before the strand goes away.
+    </p>
+    <p>
+      - Adenine pairs with Thymine<br>
+      - Guanine pairs with Cytosine
+    </p>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button onclick="prevPage(2)">Back</button>
+      <button onclick="nextPage(4)">Next</button>
+    </div>
+  </div>
+
+  <div class="popup-page" id="page-4" style="display: none;">
+    <h2>Game Rules</h2>
+    <p>
+      <img src="{{ site.baseurl }}/images/dna-dynamite/quizexample.png" alt="quiz" style="max-width: 50%; height: auto; margin: 0 auto 20px; display: block;" />
+      If you fail to complete the strand before the strand moves off the screen, you lose a life. After three lives are lost, you must answer 3 trivia questions to continue playing.
+    </p>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button onclick="prevPage(3)">Back</button>
+      <button onclick="nextPage(5)">Next</button>
+    </div>
+  </div>
+
+  <div class="popup-page" id="page-5" style="display: none;">
+    <h2>Good Luck!</h2>
+    <p>Good luck and have fun!</p>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button onclick="prevPage(4)">Back</button>
+      <button onclick="closePopup()">Start Game</button>
+    </div>
+  </div>
 </div>
+<script>
+function openPopup() {
+  document.getElementById('popup').style.display = 'block';
+  nextPage(1); // always jump to page 1 when opening
+}
+
+function nextPage(pageNumber) {
+  document.querySelectorAll('.popup-page').forEach(page => page.style.display = 'none');
+  document.getElementById('page-' + pageNumber).style.display = 'block';
+}
+
+function prevPage(pageNumber) {
+  document.querySelectorAll('.popup-page').forEach(page => page.style.display = 'none');
+  document.getElementById('page-' + pageNumber).style.display = 'block';
+}
+
+function closePopup() {
+  document.getElementById('popup').style.display = 'none';
+}
+</script>
 
 <style>
   #popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #6A3946;
-    padding: 20px;
-    border: 2px solid black;
-    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-    display: none;
-    z-index: 1000;
-  }
+  position: fixed; /* Keep it fixed on the screen even when scrolling */
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* Center it */
+  background: #6A3946;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  display: none; /* Keeps it hidden initially */
+}
+
+.popup-page {
+  /* Add any general styling for each page here */
+  padding: 20px;
+  text-align: center;
+}
+
+#popup button {
+  padding: 8px 16px;
+  font-size: 16px;
+}
+
 
   #overlay {
     position: fixed;
@@ -259,6 +350,11 @@ menu: nav/home.html
   function openPopup() {
     document.getElementById("popup").style.display = "block";
     document.getElementById("overlay").style.display = "block";
+    function openPopup() {
+    // Go straight to page 1 when opening
+    nextPage(1);
+  }
+
   }
 
   function closePopup() {
