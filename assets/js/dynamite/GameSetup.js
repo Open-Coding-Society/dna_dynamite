@@ -35,9 +35,13 @@ const GameSetup = {
     if (GameEnv.gameOver) return;
   
     const boxHeight = 40;
+    const canvasHeight = GameEnv.canvas.height; // Get actual canvas height
+    const spawnY = canvasHeight - boxHeight; // Spawn it *inside* the canvas at the bottom
+
     const box = new Box(
       0,
       GameEnv.innerHeight,
+      spawnY,
       GameEnv.innerWidth,
       boxHeight,
       -2

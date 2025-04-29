@@ -5,8 +5,6 @@ export class GameEnv {
     static boxes = [];
     static canvas = null;
     static ctx = null;
-    static innerWidth = window.innerWidth;
-    static innerHeight = window.innerHeight;
     static lives = 3;
     static score = 0;
     static gameOver = false;
@@ -33,6 +31,8 @@ export class GameEnv {
   
       canvas.width = this.innerWidth;
       canvas.height = this.innerHeight;
+      this.canvas.width = this.canvas.clientWidth;
+      this.canvas.height = this.canvas.clientHeight;
   
       this.createHeartsDisplay();
       this.createScoreDisplay();
@@ -132,7 +132,7 @@ export class GameEnv {
         }
       
         // Remove if off-screen
-        if (box.y + box.element.offsetHeight < 0) {
+        if (box.y + box.element.offsetHeight < this.canvas.getBoundingClientRect().top) {
           this.boxes.splice(i, 1);
           if (box.element) box.element.remove();
       
