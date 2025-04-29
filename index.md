@@ -57,11 +57,6 @@ menu: nav/home.html
         <!-- GameEnv will populate this -->
       </div>
 
-  <div class="text-center">
-        <p class="font-bold">Trivia Accuracy</p>
-        <p class="text-2xl mt-2" id="accuracy">✅ 90%</p>
-      </div>
-    </div>
 
   </div>
 </div>
