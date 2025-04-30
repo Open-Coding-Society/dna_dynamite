@@ -132,7 +132,12 @@ export class GameEnv {
         }
       
         // Remove if off-screen
-        if (box.y + box.element.offsetHeight < this.canvas.getBoundingClientRect().top) {
+        const gameContainer = document.getElementById("gameContainer");
+        const containerTop = gameContainer.getBoundingClientRect().top + window.scrollY;
+        const removalThreshold = containerTop + 50; // adjust 50px based on how tall your nav bar is
+        
+        if (box.y + box.element.offsetHeight < removalThreshold) {        
+
           this.boxes.splice(i, 1);
           if (box.element) box.element.remove();
       

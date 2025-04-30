@@ -8,41 +8,31 @@ permalink: /predict/
 <html lang="en">
   <meta charset="UTF-8">
   <title>Disease Risk Predictor</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Merriweather:wght@700&family=Poppins:wght@600&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --navy-background: #050b16; /* almost black */
-      --navy-form: #0d1a2e;       /* dark navy */
-      --navy-field: #1a2b44;      /* medium navy */
-      --accent: #4fa3f7;
-      --text-light: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      background-color: var(--navy-background);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      color: var(--text-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right, #1e1b3a, #2a2644);
+      color: #f5f5f5;
     }
 
     .container {
-      text-align: center;
-      width: 100%;
-      max-width: 450px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
       padding: 2rem;
     }
 
     h2 {
-      margin-bottom: 2rem;
-      font-size: 1.75rem;
-      color: var(--accent);
+      font-family: 'Poppins', sans-serif;
+      color: #ff8c42;
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      text-align: center;
     }
 
     form {
@@ -51,115 +41,154 @@ permalink: /predict/
       border-radius: 14px;
       display: grid;
       gap: 1rem;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+      max-width: 420px;
+      background-color: #2d2a4f;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      width: 100%;
     }
 
-    input {
+    input, select {
       padding: 0.75rem;
-      border-radius: 8px;
-      border: none;
       font-size: 1rem;
-      background-color: var(--navy-field);
-      color: var(--text-light);
+      border: 1px solid #444;
+      border-radius: 8px;
+      background-color: #1e1b3a;
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      transition: border 0.3s, box-shadow 0.3s;
+    }
+
+    input:focus, select:focus {
+      border-color: #ff8c42;
+      box-shadow: 0 0 8px rgba(255, 140, 66, 0.6);
+      outline: none;
     }
 
     input::placeholder {
-      color: #b0c4de;
+      color: #aaa;
     }
 
     button {
-      padding: 0.75rem;
+      padding: 0.9rem;
       font-size: 1rem;
-      background-color: var(--accent);
-      color: var(--text-light);
+      background: linear-gradient(to right, #ff8c42, #ff6600);
+      color: #1e1b3a;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
+      transition: transform 0.2s ease, background 0.3s ease;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
     }
 
     button:hover {
-      background-color: #3c8fdc;
+      transform: scale(1.03);
+      background: linear-gradient(to right, #ffa65c, #ff7f33);
     }
 
     #results {
-      margin-top: 1.5rem;
-      background-color: var(--navy-field);
-      padding: 1rem;
-      border-radius: 10px;
-      font-size: 1.05rem;
-      line-height: 1.6;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+      margin-top: 2rem;
+      font-weight: bold;
+      background-color: #302c55;
+      padding: 1.2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(255, 140, 66, 0.5);
+      color: #ffffff;
+      font-family: 'Inter', sans-serif;
+      max-width: 420px;
+      text-align: center;
     }
 
-    #results.success {
-      border-left: 5px solid #4fa3f7;
+    .low-risk {
+      color: #00bfff;
     }
 
-    #results.error {
-      border-left: 5px solid #e74c3c;
+    .medium-risk {
+      color: #c77dff;
+    }
+
+    .high-risk {
+      color: #ff8c42;
     }
   </style>
 
-  <div class="container">
-    <h2>💓 Heart Disease & Stroke Risk Predictor</h2>
-    <form id="riskForm">
-      <input type="number" name="age" placeholder="Age" required>
-      <input type="number" name="sex" placeholder="Sex (0 = Female, 1 = Male)" required>
-      <input type="number" name="bmi" step="0.1" placeholder="BMI" required>
-      <input type="number" name="weight" placeholder="Weight (kg)" required>
-      <input type="number" name="blood_pressure" placeholder="Blood Pressure" required>
-      <input type="number" name="heart_rate" placeholder="Heart Rate" required>
-      <input type="number" name="smoking_status" placeholder="Smoking Status (0 = No, 1 = Yes)" required>
-      <input type="number" name="cholesterol" placeholder="Cholesterol (mg/dL)" required>
-      <input type="number" name="glucose" placeholder="Glucose (mg/dL)" required>
-      <button type="submit">🔍 Get Prediction</button>
-    </form>
+  <body>
+    <div class="container">
+      <h2>Heart Disease & Stroke Risk Predictor</h2>
+      <form id="riskForm">
+        <input type="number" name="age" placeholder="Age" required>
+        <select name="sex" required>
+          <option value="">Select Sex</option>
+          <option value="0">Female</option>
+          <option value="1">Male</option>
+        </select>
+        <input type="number" name="bmi" step="0.1" placeholder="BMI" required>
+        <input type="number" name="weight" placeholder="Weight (kg)" required>
+        <input type="number" name="blood_pressure" placeholder="Blood Pressure" required>
+        <input type="number" name="heart_rate" placeholder="Heart Rate" required>
+        <select name="smoking_status" required>
+          <option value="">Smoking Status</option>
+          <option value="0">No</option>
+          <option value="1">Yes</option>
+        </select>
+        <input type="number" name="cholesterol" placeholder="Cholesterol (mg/dL)" required>
+        <input type="number" name="glucose" placeholder="Glucose (mg/dL)" required>
+        <button type="submit">Get Prediction</button>
+      </form>
 
-    <div id="results"></div>
-  </div>
+      <div id="results"></div>
+    </div>
 
-  <script>
-    const form = document.getElementById("riskForm");
-    const resultsDiv = document.getElementById("results");
+    <script>
+      const form = document.getElementById("riskForm");
+      const resultsDiv = document.getElementById("results");
 
-    form.addEventListener("submit", async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      for (const key in data) {
-        data[key] = parseFloat(data[key]);
+      function getRiskLabel(value) {
+        if (value < 0.33) return `<span class="low-risk">Low Risk</span>`;
+        if (value < 0.66) return `<span class="medium-risk">Medium Risk</span>`;
+        return `<span class="high-risk">High Risk</span>`;
       }
 
-      resultsDiv.className = ""; // Reset styles
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-      try {
-        const response = await fetch("http://localhost:8887/api/predict_disease", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data)
-        });
+        const formData = new FormData(form);
+        const data = Object.fromEntries(formData.entries());
 
-        const result = await response.json();
-
-        if (response.ok) {
-          resultsDiv.classList.add("success");
-          resultsDiv.innerHTML = `
-            ✅ <strong>Prediction Successful</strong><br>
-            ❤️ Heart Disease Risk: <strong>${(result.data.heart_disease_risk * 100).toFixed(2)}%</strong><br>
-            🧠 Stroke Risk: <strong>${(result.data.stroke_risk * 100).toFixed(2)}%</strong>
-          `;
-        } else {
-          resultsDiv.classList.add("error");
-          resultsDiv.textContent = `❌ Error: ${result.error}`;
+        for (const key in data) {
+          data[key] = parseFloat(data[key]);
         }
 
-      } catch (error) {
-        resultsDiv.classList.add("error");
-        resultsDiv.textContent = `⚠️ Request failed: ${error.message}`;
-      }
-    });
-  </script>
+        try {
+          const response = await fetch("http://localhost:8887/api/predict_disease", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data)
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            const heartRisk = result.data.heart_disease_risk;
+            const strokeRisk = result.data.stroke_risk;
+
+            resultsDiv.innerHTML = `
+              Prediction Successful<br><br>
+              Heart Disease Risk: ${(heartRisk * 100).toFixed(2)}%<br>
+              Interpretation: ${getRiskLabel(heartRisk)}<br><br>
+              Stroke Risk: ${(strokeRisk * 100).toFixed(2)}%<br>
+              Interpretation: ${getRiskLabel(strokeRisk)}
+            `;
+          } else {
+            resultsDiv.textContent = `Error: ${result.error}`;
+          }
+
+        } catch (error) {
+          resultsDiv.textContent = `Request failed: ${error.message}`;
+        }
+      });
+    </script>
+  </body>
 </html>
