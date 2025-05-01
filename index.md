@@ -35,6 +35,7 @@ menu: nav/home.html
     animation: fadeInScale 0.3s ease;
     pointer-events: auto;
     font-family: 'Inter', sans-serif;
+    overflow: hidden;
   }
 
   .quiz-overlay {
@@ -116,20 +117,22 @@ menu: nav/home.html
   }
 
   /* Close Button */
-  .close-button {
+  .quiz-close-button {
     position: absolute;
-    top: 0.8rem;
-    right: 1rem;
+    top: 0.75rem;
+    right: 0.75rem;
     background: none;
     border: none;
-    font-size: 1.5rem;
-    color: #94a3b8;
+    font-size: 1.25rem;
+    color: #cbd5e1;
     cursor: pointer;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 1020;
   }
 
-  .close-button:hover {
+  .quiz-close-button:hover {
     color: #f87171;
+    transform: scale(1.1);
   }
 
   /* Animation */
@@ -415,14 +418,23 @@ menu: nav/home.html
       </div>
 
 <!-- Trivia Quiz Modal -->
-<div class="quiz-overlay" style="display:none;"></div>
- <button id="closeQuizButton" class="close-button">❌</button>
-<div id="quizModal" style="display:none;">
-  <div id="quiz-container"></div>
-  <button id="submitQuizButton" onclick="GameEnv.submitQuiz()">Submit Quiz</button>
+<div class="quiz-overlay" id="quizOverlay" style="display: none;"></div>
+
+<div id="quizModal" style="display: none;">
+  <h2>Trivia Quiz</h2>
+
+  <!-- Close X inside popup -->
+  <button id="closeQuizButton" class="quiz-close-button">✖</button>
+
+  <!-- Dynamic content area -->
+  <div id="quiz-container" class="mt-4"></div>
+
+  <!-- Submit Button -->
+  <button id="submitQuizButton" class="mt-4 px-4 py-1.5 text-sm bg-gradient-to-r from-sky-500 to-indigo-600 text-white rounded-md hover:scale-105 hover:shadow-md transition">
+    Submit Quiz
+  </button>
 </div>
-  </div>
-</div>
+
 
 <script type="module">
   // Correctly importing necessary modules
