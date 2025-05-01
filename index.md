@@ -16,22 +16,25 @@ menu: nav/home.html
     font-family: 'Inter', sans-serif;
   }
 
-  /* 🎯 Trivia Quiz Styles */
+  /* 🎯 Trivia Quiz Modal Styles */
   #quizModal {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: #d81b60;
-    padding: 30px;
-    border-radius: 12px;
+    background: rgba(30, 41, 59, 0.95); /* dark glass effect */
+    backdrop-filter: blur(12px);
+    padding: 2rem;
+    border-radius: 1rem;
     width: 90%;
-    max-width: 450px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-    color: white;
-    z-index: 1010;  /* Ensure this is above the overlay */
+    max-width: 480px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+    color: #f1f5f9;
+    z-index: 1010;
     display: none;
-    pointer-events: auto;  /* Allow clicks on the modal */
+    animation: fadeInScale 0.3s ease;
+    pointer-events: auto;
+    font-family: 'Inter', sans-serif;
   }
 
   .quiz-overlay {
@@ -41,67 +44,105 @@ menu: nav/home.html
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;  /* Ensure it's below the modal */
+    z-index: 1000;
     display: none;
-    pointer-events: auto;  /* Allow interaction with the overlay if necessary */
+    pointer-events: auto;
   }
 
+  /* Headings */
   #quizModal h2 {
-    margin-bottom: 15px;
-    font-size: 24px;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #93c5fd;
+    text-align: center;
   }
 
+  /* Questions & Answers */
   #quizModal p {
-    font-size: 16px;
-    margin-bottom: 10px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
   }
 
   #quizModal label {
     display: block;
-    text-align: left;
-    margin: 5px 0;
+    background: #1e293b;
+    border: 1px solid #334155;
+    color: #f8fafc;
+    padding: 0.75rem 1rem;
+    margin: 0.5rem 0;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
   }
 
+  #quizModal label:hover {
+    background: #334155;
+  }
+
+  /* Buttons */
   #quizModal button {
-    background-color: white;
-    color: #d81b60;
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    color: white;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-top: 1rem;
+    transition: all 0.2s ease;
     cursor: pointer;
-    font-size: 16px;
-    margin-top: 10px;
   }
 
   #quizModal button:hover {
-    background-color: #f8bbd0;
+    transform: scale(1.05);
+    background: linear-gradient(to right, #2563eb, #4f46e5);
   }
 
+  /* Feedback */
   .answer-feedback {
-    font-weight: bold;
-    margin-top: 5px;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    font-size: 0.95rem;
   }
 
   .correct {
-    color: lightgreen;
+    color: #86efac; /* green-300 */
   }
 
   .incorrect {
-    color: white;
+    color: #ff9999; 
   }
-    .close-button {
+
+  /* Close Button */
+  .close-button {
     position: absolute;
-    top: 10px;
-    right: 15px;
+    top: 0.8rem;
+    right: 1rem;
     background: none;
     border: none;
-    font-size: 24px;
-    color: black;
+    font-size: 1.5rem;
+    color: #94a3b8;
     cursor: pointer;
-    z-index: 1001;
+    transition: color 0.2s ease;
   }
 
+  .close-button:hover {
+    color: #f87171;
+  }
 
+  /* Animation */
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translate(-50%, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
 
 
   #popup {
@@ -379,11 +420,7 @@ menu: nav/home.html
 <div id="quizModal" style="display:none;">
   <div id="quiz-container"></div>
   <button id="submitQuizButton" onclick="GameEnv.submitQuiz()">Submit Quiz</button>
-
-
 </div>
-
-
   </div>
 </div>
 
@@ -587,223 +624,7 @@ function closePopup() {
 }
 </script>
 
-<style>
 
-  /* 🎯 Trivia Quiz Styles */
-#quizModal {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: #d81b60;
-  padding: 30px;
-  border-radius: 12px;
-  width: 90%;
-  max-width: 450px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
-  color: white;
-  z-index: 1010;  /* Ensure this is above the overlay */
-  display: none;
-  pointer-events: auto;  /* Allow clicks on the modal */
-}
-
-.quiz-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.6);
-  z-index: 1000;  /* Ensure it's below the modal */
-  display: none;
-  pointer-events: auto;  /* Allow interaction with the overlay if necessary */
-}
-
-#quizModal h2 {
-  margin-bottom: 15px;
-  font-size: 24px;
-}
-
-#quizModal p {
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-#quizModal label {
-  display: block;
-  text-align: left;
-  margin: 5px 0;
-}
-
-#quizModal button {
-  background-color: white;
-  color: #d81b60;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  margin-top: 10px;
-}
-
-#quizModal button:hover {
-  background-color: #f8bbd0;
-}
-
-.answer-feedback {
-  font-weight: bold;
-  margin-top: 5px;
-}
-
-.correct {
-  color: lightgreen;
-}
-
-.incorrect {
-  color: white;
-}
-  .close-button {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  background: none;
-  border: none;
-  font-size: 24px;
-  color: black;
-  cursor: pointer;
-  z-index: 1001;
-}
-
-
-
-  #popup {
-  position: fixed; /* Keep it fixed on the screen even when scrolling */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center it */
-  background: #6A3946;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  display: none; /* Keeps it hidden initially */
-}
-
-.popup-page {
-  /* Add any general styling for each page here */
-  padding: 20px;
-  text-align: center;
-}
-
-#popup button {
-  padding: 8px 16px;
-  font-size: 16px;
-}
-
-
-  #overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 999;
-  }
-
-  #popup button {
-    margin-top: 10px;
-    padding: 5px 10px;
-  }
-
-   #showPopup:hover {
-    background-color: #6A3946; /* Darker pink on hover */
-  }
-
-
-  #showPopup {
-    background-color: #007bff;
-    color: #6A3946;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #111;
-    color: white;
-  }
-
-  .dna-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .strand {
-    display: flex;
-    justify-content: center;
-    gap: 16px; /* spacing between each base/gap */
-    margin-bottom: 10px;
-  }
-
-  .base, .gap {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    outline: none;
-  }
-
-  /* Top bases (blue) */
-  .base.left {
-    background-color: #0000b3;
-    color: white;
-  }
-
-  /* Bottom bases (pink) */
-  .base.right {
-    background-color: #ac3973;
-    color: white;
-  }
-
-  /* Editable yellow circles */
-  .gap.left,
-  .gap.right {
-    background-color: #e6e600;
-    border: 2px dashed black;
-    color: black;
-  }
-
-  .gap.correct {
-    background-color: green;
-    color: white;
-  }
-
-  .gap.wrong {
-    background-color: red;
-    color: white;
-  }
-
-.dna-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: auto;
-}
-
-</style>
 
 <script>
   function openPopup() {
