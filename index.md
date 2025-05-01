@@ -6,7 +6,9 @@ description: Illumina Pilot City Project
 menu: nav/home.html
 ---
 
+
 <script src="https://cdn.tailwindcss.com"></script>
+
 
 <div style="height: calc(100vh - 60px);" class="w-screen">
   <!-- ✅ Changed from flex to grid layout -->
@@ -57,12 +59,24 @@ menu: nav/home.html
         <!-- GameEnv will populate this -->
       </div>
 
+<!-- Trivia Quiz Modal -->
+<div class="quiz-overlay" style="display:none;"></div>
+ <button id="closeQuizButton" class="close-button">❌</button>
+<div id="quizModal" style="display:none;">
+  <div id="quiz-container"></div>
+  <button id="submitQuizButton" onclick="GameEnv.submitQuiz()">Submit Quiz</button>
+
+
+</div>
+
 
   </div>
 </div>
 
 <script type="module">
+  // Correctly importing necessary modules
   import Game from '{{site.baseurl}}/assets/js/dynamite/Game.js';
+  import GameEnv from '{{site.baseurl}}/assets/js/dynamite/GameEnv.js';  // Make sure this path is correct
   import GameController from '{{site.baseurl}}/assets/js/dynamite/GameController.js';
   import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
 
@@ -75,8 +89,13 @@ menu: nav/home.html
     gameCanvas: document.getElementById("gameCanvas")
   };
 
-  Game.main(environment);
-  GameController.init();
+  // Ensure GameEnv is available before calling Game.main
+  if (GameEnv) {
+    Game.main(environment); // Initialize the game with the environment settings
+    GameController.init();  // Initialize the game controller
+  } else {
+    console.error('GameEnv is not defined or not properly imported');
+  }
 
   // Fetch logged-in user info from Flask backend
   function fetchUserInfo() {
@@ -115,6 +134,15 @@ menu: nav/home.html
 
   fetchAndDisplayHighScore();
 
+  // Handling the submit quiz button
+  document.getElementById('submitQuizButton').addEventListener('click', function() {
+    // Check if GameEnv is available
+    if (typeof GameEnv !== 'undefined') {
+      GameEnv.submitQuiz();  // If GameEnv is defined, submit the quiz
+    } else {
+      console.error('GameEnv is not defined');
+    }
+  });
 </script>
 
 <div id="overlay"></div>
@@ -212,6 +240,94 @@ function closePopup() {
 </script>
 
 <style>
+
+  /* 🎯 Trivia Quiz Styles */
+#quizModal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #d81b60;
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+  color: white;
+  z-index: 1010;  /* Ensure this is above the overlay */
+  display: none;
+  pointer-events: auto;  /* Allow clicks on the modal */
+}
+
+.quiz-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;  /* Ensure it's below the modal */
+  display: none;
+  pointer-events: auto;  /* Allow interaction with the overlay if necessary */
+}
+
+#quizModal h2 {
+  margin-bottom: 15px;
+  font-size: 24px;
+}
+
+#quizModal p {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+#quizModal label {
+  display: block;
+  text-align: left;
+  margin: 5px 0;
+}
+
+#quizModal button {
+  background-color: white;
+  color: #d81b60;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+#quizModal button:hover {
+  background-color: #f8bbd0;
+}
+
+.answer-feedback {
+  font-weight: bold;
+  margin-top: 5px;
+}
+
+.correct {
+  color: lightgreen;
+}
+
+.incorrect {
+  color: white;
+}
+  .close-button {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: black;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+
+
   #popup {
   position: fixed; /* Keep it fixed on the screen even when scrolling */
   top: 50%;
@@ -359,6 +475,9 @@ function closePopup() {
 
   // Show popup on page load
   window.onload = openPopup;
+
+
+  
 </script>
 
 <template id="dna-strand-template">

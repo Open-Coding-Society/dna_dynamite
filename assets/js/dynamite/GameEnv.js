@@ -154,7 +154,7 @@ export class GameEnv {
   
     static endGame() {
   this.gameOver = true;
-  alert("Game Over!");
+  showQuizModal();
 
   submitHighScore(this.score, fetchOptions, pythonURI);
 }
@@ -219,6 +219,50 @@ export class GameEnv {
         }
       }
     }
+        // Inside GameEnv.js or relevant file
+        static submitQuiz() {
+          const quizContainer = document.getElementById("quiz-container");
+          const feedbackContainer = document.querySelectorAll(".answer-feedback");
+        
+          let correctAnswers = 0;
+        
+          // Check the answers
+          quizContainer.querySelectorAll(".question").forEach((question, index) => {
+            const selectedAnswer = question.querySelector("input[type='radio']:checked");
+            const feedback = document.getElementById("feedback" + index);
+        
+            if (selectedAnswer) {
+              const answerLetter = selectedAnswer.value;
+              const correctAnswer = selectedQuestions[index].answer;
+        
+              if (answerLetter === correctAnswer) {
+                correctAnswers++;
+                feedback.textContent = "Correct!";
+                feedback.style.color = "green";
+              } else {
+                const explanation = selectedQuestions[index].explanation || "";
+                feedback.textContent = `Incorrect! The correct answer was ${correctAnswer}. ${explanation}`;
+                feedback.style.color = "red";
+              }
+            } else {
+              const explanation = selectedQuestions[index].explanation || "";
+              feedback.textContent = `Please select an answer. ${explanation}`;
+              feedback.style.color = "orange";
+            }
+          });
+        
+          // Provide feedback based on the number of correct answers
+          alert(`You got ${correctAnswers} out of ${selectedQuestions.length} questions correct.`);
+        
+          // Close the quiz modal
+          document.getElementById("closeQuizButton").addEventListener("click", () => {
+            const modal = document.getElementById("quizModal");
+            const overlay = document.querySelector(".quiz-overlay");
+            modal.style.display = "none";
+            if (overlay) overlay.style.display = "none";
+          });
+        }
+        
   
     static reset() {
       // Remove all DNA elements from DOM
@@ -293,6 +337,70 @@ export class GameEnv {
   
     return clone;
   }
+
+  let selectedQuestions = [];
+  
+  function showQuizModal() {
+    console.log("Showing quiz modal..."); 
+    const modal = document.getElementById("quizModal");
+    const overlay = document.querySelector(".quiz-overlay");
+  
+    if (modal && overlay) {
+      modal.style.display = "flex";  // Show the quiz modal
+      overlay.style.display = "block";  // Show the overlay
+      
+      // You can fetch the question here if needed
+      fetchRandomQuestion();  // Or load the trivia question
+    }
+  }
+  
+  
+  function fetchRandomQuestion() {
+    fetch(`${pythonURI}/api/geneticstrivia`, fetchOptions)
+      .then(response => response.json())
+      .then(data => {
+        if (data && data.question && data.answer_options && data.correct_answer) {
+          selectedQuestions = [{
+            q: data.question,
+            options: data.answer_options,
+            answer: data.correct_answer,
+            explanation: data.explanation
+          }];
+
+          GameEnv.currentQuestionData = data;  // Store full data, including explanation
+
+          loadQuiz();
+        } else {
+          alert("Failed to fetch trivia question.");
+        }
+      })
+      .catch(error => {
+        console.error("Trivia error:", error);
+        alert("Error loading question.");
+      });
+  }
+  
+  function loadQuiz() {
+    const quizContainer = document.getElementById("quiz-container");
+    quizContainer.innerHTML = "";
+  
+    selectedQuestions.forEach((question, index) => {
+      let questionHTML = `<div class='question' id='q${index}'>
+        <p>${question.q}</p>`;
+  
+      for (const [letter, text] of Object.entries(question.options)) {
+        questionHTML += `<label><input type='radio' name='q${index}' value='${letter}'> ${letter}: ${text}</label>`;
+      }
+  
+      questionHTML += `<p class='answer-feedback' id='feedback${index}'></p>`;
+      questionHTML += `</div>`;
+  
+      quizContainer.innerHTML += questionHTML;
+    });
+  }
+
+  
+
   
   export default GameEnv;
   
