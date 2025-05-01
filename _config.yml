@@ -18,6 +18,5 @@ plugins:
 header_pages:
   - navigation/gamerules.md
   - navigation/trivia_qs.md
-  - navigation/unzip.md
   - navigation/predict.md
   - navigation/search.md

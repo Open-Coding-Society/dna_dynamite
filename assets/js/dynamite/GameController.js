@@ -1,6 +1,7 @@
 // GameController.js
 import Game from './Game.js';
 import GameEnv from './GameEnv.js';
+import GameSetup from './GameSetup.js';
 
 export default class GameController {
   static initialized = false;
@@ -53,5 +54,13 @@ export default class GameController {
   static restartGame() {
     console.log("Restarting game...");
     Game.restart();
+  }
+  
+  static increaseSpeed() {
+    if (Game?.increaseSpeed) {
+      Game.increaseSpeed();
+    } else {
+      console.warn("Speed control method not available in Game.");
+    }
   }
 }

@@ -85,12 +85,9 @@ menu: nav/home.html
   GameController.init();
 
   document.getElementById("speedUpBtn").addEventListener("click", () => {
-    if (GameController && GameController.GameSetup && GameController.GameSetup.manualSpeedUp) {
-      GameController.GameSetup.manualSpeedUp();
-    } else {
-      console.warn("Speed control unavailable.");
-    }
+    GameController.increaseSpeed();
   });
+
 
   // Fetch logged-in user info from Flask backend
   function fetchUserInfo() {
@@ -400,7 +397,38 @@ function closePopup() {
   window.onload = openPopup;
 </script>
 
-<template id="dna-strand-template">
+<template id="dna-strand-template-1">
+  <div class="dna-container">
+    <div class="strand top-strand">
+      <div class="base left">G</div>
+      <div class="gap left" data-answer="C" contenteditable="true"></div>
+      <div class="base left">A</div>
+      <div class="base left">T</div>
+      <div class="gap left" data-answer="C" contenteditable="true"></div>
+      <div class="base left">G</div>
+      <div class="gap left" data-answer="T" contenteditable="true"></div>
+      <div class="base left">T</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">A</div>
+    </div>
+    <div class="strand bottom-strand">
+      <div class="gap right" data-answer="C" contenteditable="true"></div>
+      <div class="base right">G</div>
+      <div class="base right">T</div>
+      <div class="gap right" data-answer="A" contenteditable="true"></div>
+      <div class="base right">G</div>
+      <div class="base right">C</div>
+      <div class="base right">A</div>
+      <div class="gap right" data-answer="A" contenteditable="true"></div>
+      <div class="base right">T</div>
+      <div class="base right">T</div>
+    </div>
+  </div>
+</template>
+
+
+
+<template id="dna-strand-template-2">
   <div class="dna-container">
     <div class="strand top-strand">
       <div class="base left">A</div>
@@ -429,3 +457,32 @@ function closePopup() {
   </div>
 </template>
 
+
+<template id="dna-strand-template-3">
+  <div class="dna-container">
+    <div class="strand top-strand">
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="T" contenteditable="true"></div>
+      <div class="base left">A</div>
+      <div class="base left">G</div>
+      <div class="gap left" data-answer="T" contenteditable="true"></div>
+      <div class="base left">C</div>
+      <div class="gap left" data-answer="C" contenteditable="true"></div>
+      <div class="base left">G</div>
+      <div class="gap left" data-answer="A" contenteditable="true"></div>
+      <div class="base left">T</div>
+    </div>
+    <div class="strand bottom-strand">
+      <div class="gap right" data-answer="G" contenteditable="true"></div>
+      <div class="base right">A</div>
+      <div class="base right">T</div>
+      <div class="gap right" data-answer="C" contenteditable="true"></div>
+      <div class="base right">A</div>
+      <div class="base right">G</div>
+      <div class="base right">G</div>
+      <div class="gap right" data-answer="C" contenteditable="true"></div>
+      <div class="base right">T</div>
+      <div class="base right">A</div>
+    </div>
+  </div>
+</template>
