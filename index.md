@@ -137,16 +137,43 @@ menu: nav/home.html
   <!-- Exit button -->
   <button onclick="closePopup()" style="position: absolute; top: 10px; right: 10px; font-size: 20px; background: none; border: none; cursor: pointer;">✖</button>
 
-  <div class="popup-page" id="page-1">
+  <!-- NEW INTRO PAGE -->
+  <div class="popup-page" id="page-0">
     <h2>Welcome to DNA Dynamite!</h2>
     <p>
-      DNA is made up of four bases—Adenine (A), Thymine (T), Cytosine (C), and Guanine (G)—which pair specifically: A with T, and C with G. This base pairing is the foundation of DNA structure and how it's copied during replication. Illumina uses this exact principle in its DNA sequencing technology. By reading the order of these base pairs, Illumina’s machines can decode entire genomes. This helps scientists and doctors understand genetics better, leading to breakthroughs in research, diagnostics, and personalized medicine.
+      Illumina is a leading company in DNA sequencing, allowing scientists to read the entire human genome. It uses the natural pairing rules of DNA—A with T, C with G—to match bases and decode genetic instructions.
     </p>
     <p>
-      Let's get to know these base pairings more by playing DNA Dynamite!
+      This technology helps doctors better understand diseases, develop new treatments, and even personalize medicine to your unique genetic code.
+    </p>
+    <p>
+      <strong>Here we have created a game to help you understand base pairing!</strong>
     </p>
     <div style="display: flex; justify-content: space-between; margin-top: 20px;">
-      <button style="visibility: hidden;">Back</button> <!-- Hidden Back button on first page -->
+      <button style="visibility: hidden;">Back</button>
+      <button onclick="nextPage(1)">Next</button>
+    </div>
+  </div>
+
+  <div class="popup-page" id="page-1">
+    <div id="dna-info">
+      <h2>How DNA Works</h2>
+      <p><strong>DNA</strong> is made up of four bases:</p>
+      <ul>
+        <li><strong>A</strong> (Adenine)</li>
+        <li><strong>T</strong> (Thymine)</li>
+        <li><strong>C</strong> (Cytosine)</li>
+        <li><strong>G</strong> (Guanine)</li>
+      </ul>
+      <p>These bases always pair the same way:</p>
+      <ul>
+        <li><strong>A</strong> pairs with <strong>T</strong></li>
+        <li><strong>C</strong> pairs with <strong>G</strong></li>
+      </ul>
+      <p>This pairing forms the structure of DNA and is how DNA copies itself during replication.</p>
+    </div>
+    <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+      <button onclick="prevPage(0)">Back</button>
       <button onclick="nextPage(2)">Next</button>
     </div>
   </div>
@@ -206,20 +233,22 @@ menu: nav/home.html
 </div>
 <script>
 function openPopup() {
-  document.getElementById('popup').style.display = 'block';
-  nextPage(1); // always jump to page 1 when opening
+  document.getElementById("popup").style.display = "block";
+  document.getElementById("overlay").style.display = "block";
+  // Show only page 0 initially
+  document.querySelectorAll(".popup-page").forEach(page => {
+    page.style.display = "none";
+  });
+  document.getElementById("page-0").style.display = "block";
 }
-
 function nextPage(pageNumber) {
   document.querySelectorAll('.popup-page').forEach(page => page.style.display = 'none');
   document.getElementById('page-' + pageNumber).style.display = 'block';
 }
-
 function prevPage(pageNumber) {
   document.querySelectorAll('.popup-page').forEach(page => page.style.display = 'none');
   document.getElementById('page-' + pageNumber).style.display = 'block';
 }
-
 function closePopup() {
   document.getElementById('popup').style.display = 'none';
 }
@@ -359,11 +388,7 @@ function closePopup() {
   function openPopup() {
     document.getElementById("popup").style.display = "block";
     document.getElementById("overlay").style.display = "block";
-    function openPopup() {
-    // Go straight to page 1 when opening
-    nextPage(1);
-  }
-
+    nextPage(0); // Show the first actual page
   }
 
   function closePopup() {
