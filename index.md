@@ -7,6 +7,213 @@ menu: nav/home.html
 ---
 
 <script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+  body {
+    font-family: 'Inter', sans-serif;
+  }
+
+  #popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(30, 41, 59, 0.85); /* dark glass look */
+    backdrop-filter: blur(16px);
+    border: 1px solid #334155;
+    border-radius: 1rem;
+    padding: 2rem;
+    width: 90%;
+    max-width: 500px;
+    z-index: 1000;
+    color: #f8fafc; /* very light gray */
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+    animation: fadeInScale 0.3s ease;
+  }
+
+  .popup-page {
+    display: none;
+    text-align: center;
+    animation: fadeSlideIn 0.4s ease;
+  }
+
+  .popup-page h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: #93c5fd; /* sky blue title */
+  }
+
+  .popup-page p,
+  .popup-page ul {
+    font-size: 0.95rem;
+    color: #e2e8f0;
+    margin-bottom: 1rem;
+  }
+
+  .popup-page ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .popup-page li::before {
+    content: "🔹 ";
+  }
+
+  #popup button {
+    background: linear-gradient(to right, #3b82f6, #6366f1);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 8px;
+    margin: 0 5px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  #popup button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to right, #2563eb, #4f46e5);
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translate(-50%, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.9) translate(-50%, -50%);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translate(-50%, -50%);
+    }
+  }
+
+
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: none;
+    z-index: 999;
+  }
+
+
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background-color: #111;
+    color: white;
+  }
+
+  .dna-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .strand {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* spacing between each base/gap */
+    margin-bottom: 10px;
+  }
+
+  .base, .gap {
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+  }
+
+  /* Top bases (blue) */
+  .base.left {
+    background-color: #0000b3;
+    color: white;
+  }
+
+  /* Bottom bases (pink) */
+  .base.right {
+    background-color: #ac3973;
+    color: white;
+  }
+
+  /* Editable yellow circles */
+  .gap.left,
+  .gap.right {
+    background-color: #e6e600;
+    border: 2px dashed black;
+    color: black;
+  }
+
+  .gap.correct {
+    background-color: green;
+    color: white;
+  }
+
+  .gap.wrong {
+    background-color: red;
+    color: white;
+  }
+
+.dna-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: auto;
+}
+
+.rounded-xl {
+  border-radius: 0.75rem;
+}
+.shadow-lg {
+  box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+</style>
 
 <div style="height: calc(100vh - 60px);" class="w-screen">
   <!-- ✅ Changed from flex to grid layout -->
@@ -26,18 +233,31 @@ menu: nav/home.html
         <!-- Menu -->
         <div class="mb-4">
           <p class="font-bold">Menu</p>
-          <ul class="text-sm space-y-1 mt-1">
-            <li><button id="startBtn" class="hover:underline">▶️ Start</button></li>
-            <li><button id="pauseBtn" class="hover:underline">⏸️ Pause</button></li>
-            <li><button id="resumeBtn" class="hover:underline">⏩ Resume</button></li>
-            <li><button id="restartBtn" class="hover:underline">🔁 Restart</button></li>
+          <ul class="text-sm space-y-2 mt-2">
+            <li>
+              <button id="startBtn" class="w-full px-3 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                ▶️ Start
+              </button>
+            </li>
+            <li>
+              <button id="pauseBtn" class="w-full px-3 py-2 bg-gradient-to-r from-yellow-500 to-amber-600 text-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                ⏸️ Pause
+              </button>
+            </li>
+            <li>
+              <button id="resumeBtn" class="w-full px-3 py-2 bg-gradient-to-r from-blue-500 to-indigo-600 text-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                ⏩ Resume
+              </button>
+            </li>
+            <li>
+              <button id="restartBtn" class="w-full px-3 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                🔁 Restart
+              </button>
+            </li>
           </ul>
-          <li id="deleteScoreLi" style="display: none;">
-            <button id="deleteScoreBtn" class="hover:underline text-red-400">🗑️ Delete Score</button>
-          </li>
           <!-- Manual Speed Control -->
           <div class="mt-6">
-            <button id="speedUpBtn" class="px-3 py-2 bg-blue-700 text-white rounded hover:bg-blue-800 w-full text-sm">
+            <button id="speedUpBtn" class="w-full px-3 py-2 bg-gradient-to-r from-indigo-600 to-blue-600 text-white rounded-lg shadow-md transition-all duration-300 hover:scale-105 hover:shadow-lg">
               ⚡ Increase Speed
             </button>
           </div>
@@ -53,7 +273,7 @@ menu: nav/home.html
     <!-- Center Panel -->
   <div id="gameContainer" class="flex flex-col justify-center items-center relative bg-black">
       <!-- Game Canvas -->
-      <canvas id="gameCanvas" class="w-[100%] h-[100%]"></canvas>
+      <canvas id="gameCanvas" class="w-[100%] h-[100%] absolute top-0 left-0 w-full h-full -z-10 opacity-10"></canvas>
     </div>
 
     <!-- Right Panel -->
@@ -250,136 +470,6 @@ function closePopup() {
   document.getElementById('popup').style.display = 'none';
 }
 </script>
-
-<style>
-  #popup {
-  position: fixed; /* Keep it fixed on the screen even when scrolling */
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); /* Center it */
-  background: #6A3946;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 500px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  z-index: 1000;
-  display: none; /* Keeps it hidden initially */
-}
-
-.popup-page {
-  /* Add any general styling for each page here */
-  padding: 20px;
-  text-align: center;
-}
-
-#popup button {
-  padding: 8px 16px;
-  font-size: 16px;
-}
-
-
-  #overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: none;
-    z-index: 999;
-  }
-
-  #popup button {
-    margin-top: 10px;
-    padding: 5px 10px;
-  }
-
-   #showPopup:hover {
-    background-color: #6A3946; /* Darker pink on hover */
-  }
-
-
-  #showPopup {
-    background-color: #007bff;
-    color: #6A3946;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-
-  body {
-    text-align: center;
-    font-family: Arial, sans-serif;
-    background-color: #111;
-    color: white;
-  }
-
-  .dna-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 100%;
-    margin-top: 10px;
-  }
-
-  .strand {
-    display: flex;
-    justify-content: center;
-    gap: 16px; /* spacing between each base/gap */
-    margin-bottom: 10px;
-  }
-
-  .base, .gap {
-    width: 60px;
-    height: 60px;
-    line-height: 60px;
-    border-radius: 50%;
-    font-size: 24px;
-    font-weight: bold;
-    text-align: center;
-    outline: none;
-  }
-
-  /* Top bases (blue) */
-  .base.left {
-    background-color: #0000b3;
-    color: white;
-  }
-
-  /* Bottom bases (pink) */
-  .base.right {
-    background-color: #ac3973;
-    color: white;
-  }
-
-  /* Editable yellow circles */
-  .gap.left,
-  .gap.right {
-    background-color: #e6e600;
-    border: 2px dashed black;
-    color: black;
-  }
-
-  .gap.correct {
-    background-color: green;
-    color: white;
-  }
-
-  .gap.wrong {
-    background-color: red;
-    color: white;
-  }
-
-.dna-box {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  pointer-events: auto;
-}
-
-</style>
 
 <script>
   function openPopup() {
