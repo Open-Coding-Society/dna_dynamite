@@ -16,6 +16,94 @@ menu: nav/home.html
     font-family: 'Inter', sans-serif;
   }
 
+  /* 🎯 Trivia Quiz Styles */
+  #quizModal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #d81b60;
+    padding: 30px;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.4);
+    color: white;
+    z-index: 1010;  /* Ensure this is above the overlay */
+    display: none;
+    pointer-events: auto;  /* Allow clicks on the modal */
+  }
+
+  .quiz-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;  /* Ensure it's below the modal */
+    display: none;
+    pointer-events: auto;  /* Allow interaction with the overlay if necessary */
+  }
+
+  #quizModal h2 {
+    margin-bottom: 15px;
+    font-size: 24px;
+  }
+
+  #quizModal p {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+
+  #quizModal label {
+    display: block;
+    text-align: left;
+    margin: 5px 0;
+  }
+
+  #quizModal button {
+    background-color: white;
+    color: #d81b60;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  #quizModal button:hover {
+    background-color: #f8bbd0;
+  }
+
+  .answer-feedback {
+    font-weight: bold;
+    margin-top: 5px;
+  }
+
+  .correct {
+    color: lightgreen;
+  }
+
+  .incorrect {
+    color: white;
+  }
+    .close-button {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: black;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+
+
+
   #popup {
     position: fixed;
     top: 50%;
