@@ -242,7 +242,7 @@ export class GameEnv {
               } else {
                 const explanation = selectedQuestions[index].explanation || "";
                 feedback.textContent = `Incorrect! The correct answer was ${correctAnswer}. ${explanation}`;
-                feedback.style.color = "red";
+                feedback.style.color = "pink";
               }
             } else {
               const explanation = selectedQuestions[index].explanation || "";
