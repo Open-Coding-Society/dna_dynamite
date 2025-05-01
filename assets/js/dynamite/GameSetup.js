@@ -6,6 +6,7 @@ let canvasRef = null;
 let isRunning = false; // ✅ Add this
 let strandCount = 0;
 let currentInterval = 8000; // starting interval (8 seconds)
+let hasSpawnedBefore = false;
 
 const GameSetup = {
   start(canvas) {
@@ -24,10 +25,11 @@ const GameSetup = {
   startSpawning() {
     if (intervalId) clearInterval(intervalId);
   
-    // Spawn one immediately
-    this.spawnStrand();
+    if (!hasSpawnedBefore) {
+      this.spawnStrand(); // ✅ Only spawn immediately the first time
+      hasSpawnedBefore = true;
+    }
   
-    // Start interval
     intervalId = setInterval(() => this.spawnStrand(), currentInterval);
   },
   
@@ -86,7 +88,8 @@ const GameSetup = {
 
   restart() {
     this.pause();
-    GameEnv.reset(); // You'll need this in GameEnv.js
+    GameEnv.reset();
+    hasSpawnedBefore = false; // ✅ Allow first spawn again
     this.start(canvasRef);
   },
 
@@ -95,7 +98,17 @@ const GameSetup = {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     GameEnv.handleClick(x, y);
+  }, 
+  
+  manualSpeedUp() {
+    if (currentInterval > 1000) {
+      currentInterval -= 500; // Decrease interval by 0.5s
+      clearInterval(intervalId);
+      intervalId = setInterval(() => this.spawnStrand(), currentInterval);
+      console.log(`Manual speed increase: ${currentInterval / 1000}s interval`);
+    }
   }
+  
 };
 
 // Box class

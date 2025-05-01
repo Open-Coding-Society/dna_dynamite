@@ -35,6 +35,12 @@ menu: nav/home.html
           <li id="deleteScoreLi" style="display: none;">
             <button id="deleteScoreBtn" class="hover:underline text-red-400">🗑️ Delete Score</button>
           </li>
+          <!-- Manual Speed Control -->
+          <div class="mt-6">
+            <button id="speedUpBtn" class="px-3 py-2 bg-blue-700 text-white rounded hover:bg-blue-800 w-full text-sm">
+              ⚡ Increase Speed
+            </button>
+          </div>
         </div>
         <!-- Icons -->
         <div class="flex gap-4 mt-6 text-sm text-blue-400 underline">
@@ -77,6 +83,14 @@ menu: nav/home.html
 
   Game.main(environment);
   GameController.init();
+
+  document.getElementById("speedUpBtn").addEventListener("click", () => {
+    if (GameController && GameController.GameSetup && GameController.GameSetup.manualSpeedUp) {
+      GameController.GameSetup.manualSpeedUp();
+    } else {
+      console.warn("Speed control unavailable.");
+    }
+  });
 
   // Fetch logged-in user info from Flask backend
   function fetchUserInfo() {
