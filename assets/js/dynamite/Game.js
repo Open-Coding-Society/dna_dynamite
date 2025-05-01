@@ -25,6 +25,10 @@ const Game = {
 
   restart() {
     GameSetup.restart();
+  },
+  
+  increaseSpeed() {
+    GameSetup.manualSpeedUp()
   }
 };
 

@@ -3,7 +3,7 @@ description: "Illumina DNA Dynamite Game"
 owner_name: Team Smart Cells
 github_username: blackstar3092
 github_repo: "illumina_pc_frontend" 
-baseurl: "/dna_dynamite"
+baseurl: "/illumina_pc_frontend"
 future: true
 remote_theme: jekyll/minima
 minima:
@@ -18,6 +18,5 @@ plugins:
 header_pages:
   - navigation/gamerules.md
   - navigation/trivia_qs.md
-  - navigation/unzip.md
-  - navigation/blog.md
+  - navigation/predict.md
   - navigation/search.md

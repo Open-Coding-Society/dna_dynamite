@@ -37,26 +37,41 @@
 
 <!-- Add this CSS to style and space out the links -->
 <style>
+  /* Overall Header */
   .site-header {
-    background: transparent;
+    background: #000000; /* solid black background */
     position: relative;
     z-index: 10;
-    padding: 4px 0; /* Make header thinner */
+    padding: 8px 0; /* slightly thicker (was 4px originally) */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2); /* slight shadow for depth */
   }
 
+  /* Site Title */
   .site-title {
-    font-size: 1.7rem; /* Smaller title */
-    line-height: 1.2;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-size: 2rem; /* moderate size */
+    font-weight: 600;
+    color: #ffffff; /* white title text */
     margin: 0;
+    text-decoration: none;
   }
 
+  /* Navigation Links */
   .site-nav .trigger a {
-    margin-right: 10px;
-    padding: 4px 6px; /* Reduce padding to shrink height */
-    font-size: 20;
-    line-height: 1.2;
-    background: none;
-    box-shadow: none;
+    margin-right: 16px;
+    padding: 6px 8px;
+    font-size: 17px;
+    font-family: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 500;
+    color: #cccccc; /* light gray links */
+    text-decoration: none;
+    transition: color 0.2s ease, background 0.2s ease;
+    border-radius: 4px;
+  }
+
+  .site-nav .trigger a:hover {
+    background: #0000b3; /* dark blue hover background */
+    color: #ffffff; /* white text on hover */
   }
 
   .site-nav .trigger a:focus {
@@ -72,13 +87,14 @@
     cursor: pointer;
   }
 
-  /* Desktop view: show nav links inline */
+  /* Flex Layout for Desktop */
   .site-nav .trigger {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
 
+  /* Mobile Styles */
   @media screen and (max-width: 768px) {
     .menu-icon {
       display: inline-block;
@@ -90,12 +106,13 @@
       left: -100%;
       width: 250px;
       height: 100%;
-      background: rgb(18, 24, 38);
-      color: white;
+      background: #000000; /* keep mobile menu black too */
+      color: #ffffff;
       flex-direction: column;
-      padding-top: 40px;
+      padding-top: 60px;
       transition: left 0.3s ease;
       z-index: 100;
+      box-shadow: 2px 0 5px rgba(0,0,0,0.2);
     }
 
     .nav-trigger:checked ~ .trigger {
@@ -104,10 +121,16 @@
 
     .site-nav .trigger a {
       display: block;
-      margin: 15px;
-      font-size: 25px;
-      color: white;
+      margin: 15px 0;
+      font-size: 22px;
+      color: #cccccc;
       padding: 10px;
+    }
+
+    .site-nav .trigger a:hover {
+      background: #0000b3;
+      color: #ffffff;
     }
   }
 </style>
+

@@ -115,7 +115,7 @@ export class GameEnv {
   
       for (let i = this.boxes.length - 1; i >= 0; i--) {
         const box = this.boxes[i];
-        box.y -= 0.5; // adjust speed here
+        box.y += box.vy; // adjust speed here
       
         // Move the DOM element
         if (box.element) {
@@ -291,8 +291,18 @@ export class GameEnv {
   }
   
   function createDnaPuzzleElement() {
-    const template = document.getElementById("dna-strand-template");
+    const templateIds = [
+      "dna-strand-template-1",
+      "dna-strand-template-2",
+      "dna-strand-template-3"
+    ];
+    
+    const randomId = templateIds[Math.floor(Math.random() * templateIds.length)];
+    const template = document.getElementById(randomId);
     const clone = template.content.cloneNode(true);
+    
+    // const template = document.getElementById("dna-strand-template");
+    // const clone = template.content.cloneNode(true);
   
     // Store a reference to this specific strand element
     const strandElement = clone.querySelector(".dna-container");

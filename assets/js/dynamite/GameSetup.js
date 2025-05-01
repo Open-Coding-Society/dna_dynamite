@@ -5,7 +5,11 @@ let animationFrameId = null;
 let canvasRef = null;
 let isRunning = false; // ✅ Add this
 let strandCount = 0;
-let currentInterval = 8000; // starting interval (8 seconds)
+let hasSpawnedBefore = false;
+const DEFAULT_BOX_SPEED = -0.5;
+const DEFAULT_INTERVAL = 8000;
+let boxSpeed = DEFAULT_BOX_SPEED; // negative because boxes move upward
+let currentInterval = DEFAULT_INTERVAL; // starting interval (8 seconds)
 
 const GameSetup = {
   start(canvas) {
@@ -24,10 +28,11 @@ const GameSetup = {
   startSpawning() {
     if (intervalId) clearInterval(intervalId);
   
-    // Spawn one immediately
-    this.spawnStrand();
+    if (!hasSpawnedBefore) {
+      this.spawnStrand(); // ✅ Only spawn immediately the first time
+      hasSpawnedBefore = true;
+    }
   
-    // Start interval
     intervalId = setInterval(() => this.spawnStrand(), currentInterval);
   },
   
@@ -40,22 +45,13 @@ const GameSetup = {
 
     const box = new Box(
       0,
-      GameEnv.innerHeight,
       spawnY,
       GameEnv.innerWidth,
       boxHeight,
-      -2
+      boxSpeed
     );
     GameEnv.addBox(box);
     strandCount++;
-  
-    // Increase speed every 5 strands
-    if (strandCount % 5 === 0 && currentInterval > 2000) {
-      currentInterval -= 1000; // decrease interval (increase speed)
-      clearInterval(intervalId);
-      intervalId = setInterval(() => this.spawnStrand(), currentInterval);
-      console.log(`Increased speed! New interval: ${currentInterval / 1000}s`);
-    }
   },
   
   startLoop() {
@@ -86,7 +82,12 @@ const GameSetup = {
 
   restart() {
     this.pause();
-    GameEnv.reset(); // You'll need this in GameEnv.js
+    GameEnv.reset();
+    boxSpeed = DEFAULT_BOX_SPEED;
+    currentInterval = DEFAULT_INTERVAL;
+    clearInterval(intervalId);
+    intervalId = setInterval(() => this.spawnStrand(), currentInterval);
+    hasSpawnedBefore = false; // ✅ Allow first spawn again
     this.start(canvasRef);
   },
 
@@ -95,7 +96,30 @@ const GameSetup = {
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     GameEnv.handleClick(x, y);
+  }, 
+  
+  manualSpeedUp() {
+    boxSpeed -= 0.5;
+  
+    // Update speed of all existing boxes
+    GameEnv.boxes.forEach(box => {
+      box.vy = boxSpeed;
+    });
+  
+    // ✅ Recalculate spawn interval
+    const baseGap = 300; // desired pixel spacing between strands
+    const fps = 60;
+    const msPerFrame = 1000 / fps;
+    currentInterval = (baseGap / Math.abs(boxSpeed)) * msPerFrame;
+  
+    // Reset interval timer
+    clearInterval(intervalId);
+    intervalId = setInterval(() => this.spawnStrand(), currentInterval);
+  
+    console.log(`Speed: ${boxSpeed}px/frame | New spawn interval: ${Math.round(currentInterval)}ms`);
   }
+  
+  
 };
 
 // Box class
