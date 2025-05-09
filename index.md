@@ -523,10 +523,7 @@ menu: nav/home.html
   <div class="popup-page" id="page-0">
     <h2>Welcome to DNA Dynamite!</h2>
     <p>
-      Illumina is a leading company in DNA sequencing, allowing scientists to read the entire human genome. It uses the natural pairing rules of DNA—A with T, C with G—to match bases and decode genetic instructions.
-    </p>
-    <p>
-      This technology helps doctors better understand diseases, develop new treatments, and even personalize medicine to your unique genetic code.
+      DNA is the instruction manual for all living things. It tells cells how to grow, function, and respond to the world. By studying DNA, scientists can understand how traits are passed down, why diseases happen, and how to create better medicines. One of the most important parts of DNA is how its pieces pair up—something called base pairing.
     </p>
     <p>
       <strong>Here we have created a game to help you understand base pairing!</strong>
