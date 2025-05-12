@@ -65,7 +65,7 @@ export class GameEnv {
         this.scoreContainer = document.createElement("div");
         this.scoreContainer.id = "scoreContainer";
         this.scoreContainer.style.position = "absolute";
-        this.scoreContainer.style.top = "180px"; // Position it below the hearts container
+        this.scoreContainer.style.top = "200px"; // Position it below the hearts container
         this.scoreContainer.style.left = "90%"; // Center horizontally
         this.scoreContainer.style.transform = "translateX(-50%)"; // Center horizontally with offset
         this.scoreContainer.style.fontSize = "24px";
@@ -92,13 +92,14 @@ export class GameEnv {
         const heart = document.createElement("span");
       
           // If the life is lost, use the broken heart emoji
-      if (i < this.lives) {
-        heart.innerHTML = "❤️"; // Healthy heart
-        } else {
-        heart.innerHTML = "💔"; // Broken heart when lives are lost
-        }
+          if (i < this.lives) {
+            heart.innerHTML = "❤️"; // Healthy heart
+          } else {
+            heart.innerHTML = ""; // No heart shown
+          }
+          
       
-        heart.style.fontSize = "24px"; // Adjust the size of the hearts
+        heart.style.fontSize = "50px"; // Adjust the size of the hearts
         this.heartsContainer.appendChild(heart);
       }
     }
