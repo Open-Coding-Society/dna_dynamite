@@ -1,10 +1,10 @@
 export var pythonURI;
 if (location.hostname === "localhost") {
-        pythonURI = "http://localhost:8601";
+        pythonURI = "http://localhost:8887";
 } else if (location.hostname === "127.0.0.1") {
-        pythonURI = "http://127.0.0.1:8601";
+        pythonURI = "http://127.0.0.1:8887";
 } else {
-        pythonURI =  "https://dnadynamite.stu.nighthawkcodingsociety.com";
+        pythonURI =  "https://flocker.nighthawkcodingsociety.com";
 }
 export var javaURI;
 if (location.hostname === "localhost") {
