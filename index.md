@@ -31,12 +31,13 @@ menu: nav/home.html
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     color: #f1f5f9;
     z-index: 1010;
+    
+    max-height: 80vh; /* or whatever max height you want */
+    overflow-y: auto; /* allow vertical scrolling */
 
     /* NEW: flex layout to stack content vertically */
     display: flex;
     flex-direction: column;
-    height: 80vh; /* or whatever height fits your design */
-    overflow: hidden;
 
     animation: fadeInScale 0.3s ease;
     pointer-events: auto;
