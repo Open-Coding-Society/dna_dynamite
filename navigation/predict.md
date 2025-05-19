@@ -17,7 +17,6 @@ permalink: /predict/
       background: linear-gradient(to right, #1e1b3a, #2a2644);
       color: #f5f5f5;
     }
-
     .container {
       display: flex;
       flex-direction: column;
@@ -26,7 +25,6 @@ permalink: /predict/
       height: 100%;
       padding: 2rem;
     }
-
     h2 {
       font-family: 'Poppins', sans-serif;
       color: #ff8c42;
@@ -34,7 +32,6 @@ permalink: /predict/
       margin-bottom: 1.5rem;
       text-align: center;
     }
-
     form {
       background-color: var(--navy-form);
       padding: 2rem;
@@ -48,7 +45,6 @@ permalink: /predict/
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
       width: 100%;
     }
-
     input, select {
       padding: 0.75rem;
       font-size: 1rem;
@@ -59,17 +55,14 @@ permalink: /predict/
       font-family: 'Inter', sans-serif;
       transition: border 0.3s, box-shadow 0.3s;
     }
-
     input:focus, select:focus {
       border-color: #ff8c42;
       box-shadow: 0 0 8px rgba(255, 140, 66, 0.6);
       outline: none;
     }
-
     input::placeholder {
       color: #aaa;
     }
-
     button {
       padding: 0.9rem;
       font-size: 1rem;
@@ -82,12 +75,10 @@ permalink: /predict/
       font-weight: 600;
       font-family: 'Inter', sans-serif;
     }
-
     button:hover {
       transform: scale(1.03);
       background: linear-gradient(to right, #ffa65c, #ff7f33);
     }
-
     #results {
       margin-top: 2rem;
       font-weight: bold;
@@ -100,15 +91,12 @@ permalink: /predict/
       max-width: 420px;
       text-align: center;
     }
-
     .low-risk {
       color: #00bfff;
     }
-
     .medium-risk {
       color: #c77dff;
     }
-
     .high-risk {
       color: #ff8c42;
     }
@@ -137,43 +125,33 @@ permalink: /predict/
         <input type="number" name="glucose" placeholder="Glucose (mg/dL)" required>
         <button type="submit">Get Prediction</button>
       </form>
-
       <div id="results"></div>
     </div>
-
     <script>
       const form = document.getElementById("riskForm");
       const resultsDiv = document.getElementById("results");
-
       function getRiskLabel(value) {
         if (value < 0.33) return `<span class="low-risk">Low Risk</span>`;
         if (value < 0.66) return `<span class="medium-risk">Medium Risk</span>`;
         return `<span class="high-risk">High Risk</span>`;
       }
-
       form.addEventListener("submit", async (e) => {
         e.preventDefault();
-
         const formData = new FormData(form);
         const data = Object.fromEntries(formData.entries());
-
         for (const key in data) {
           data[key] = parseFloat(data[key]);
         }
-
         try {
           const response = await fetch("http://localhost:8887/api/predict_disease", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
           });
-
           const result = await response.json();
-
           if (response.ok) {
             const heartRisk = result.data.heart_disease_risk;
             const strokeRisk = result.data.stroke_risk;
-
             resultsDiv.innerHTML = `
               Prediction Successful<br><br>
               Heart Disease Risk: ${(heartRisk * 100).toFixed(2)}%<br>
@@ -184,7 +162,6 @@ permalink: /predict/
           } else {
             resultsDiv.textContent = `Error: ${result.error}`;
           }
-
         } catch (error) {
           resultsDiv.textContent = `Request failed: ${error.message}`;
         }
