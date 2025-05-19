@@ -315,6 +315,18 @@ menu: nav/home.html
     color: white;
   }
 
+    /* DNA base pair colors */
+  .gc-pair {
+    background-color: #0000b3 !important; /* deep blue */
+    color: white !important;
+  }
+
+  .at-pair {
+    background-color: #ac3973 !important; /* soft pink */
+    color: white !important;
+  }
+
+
   /* Editable yellow circles */
   .gap.left,
   .gap.right {
@@ -657,28 +669,28 @@ function closePopup() {
 <template id="dna-strand-template-1">
   <div class="dna-container">
     <div class="strand top-strand">
-      <div class="base left">G</div>
+      <div class="base left gc-pair">G</div>
       <div class="gap left" data-answer="C" contenteditable="true"></div>
-      <div class="base left">A</div>
-      <div class="base left">T</div>
+      <div class="base left at-pair">A</div>
+      <div class="base left at-pair">T</div>
       <div class="gap left" data-answer="C" contenteditable="true"></div>
-      <div class="base left">G</div>
+      <div class="base left gc-pair">G</div>
       <div class="gap left" data-answer="T" contenteditable="true"></div>
-      <div class="base left">T</div>
+      <div class="base left at-pair">T</div>
       <div class="gap left" data-answer="A" contenteditable="true"></div>
-      <div class="base left">A</div>
+      <div class="base left at-pair">A</div>
     </div>
     <div class="strand bottom-strand">
       <div class="gap right" data-answer="C" contenteditable="true"></div>
-      <div class="base right">G</div>
-      <div class="base right">T</div>
+      <div class="base right gc-pair">G</div>
+      <div class="base right at-pair">T</div>
       <div class="gap right" data-answer="A" contenteditable="true"></div>
-      <div class="base right">G</div>
-      <div class="base right">C</div>
-      <div class="base right">A</div>
+      <div class="base right gc-pair">G</div>
+      <div class="base right gc-pair">C</div>
+      <div class="base right at-pair">A</div>
       <div class="gap right" data-answer="A" contenteditable="true"></div>
-      <div class="base right">T</div>
-      <div class="base right">T</div>
+      <div class="base right at-pair">T</div>
+      <div class="base right at-pair">T</div>
     </div>
   </div>
 </template>
@@ -688,28 +700,28 @@ function closePopup() {
 <template id="dna-strand-template-2">
   <div class="dna-container">
     <div class="strand top-strand">
-      <div class="base left">A</div>
+      <div class="base left at-pair">A</div>
       <div class="gap left" data-answer="A" contenteditable="true"></div>
-      <div class="base left">G</div>
-      <div class="base left">C</div>
+      <div class="base left gc-pair">G</div>
+      <div class="base left gc-pair">C</div>
       <div class="gap left" data-answer="G" contenteditable="true"></div>
-      <div class="base left">T</div>
+      <div class="base left at-pair">T</div>
       <div class="gap left" data-answer="A" contenteditable="true"></div>
-      <div class="base left">C</div>
+      <div class="base left gc-pair">C</div>
       <div class="gap left" data-answer="T" contenteditable="true"></div>
-      <div class="base left">G</div>
+      <div class="base left gc-pair">G</div>
     </div>
     <div class="strand bottom-strand">
       <div class="gap right" data-answer="T" contenteditable="true"></div>
-      <div class="base right">T</div>
-      <div class="base right">C</div>
+      <div class="base right at-pair">T</div>
+      <div class="base right gc-pair">C</div>
       <div class="gap right" data-answer="G" contenteditable="true"></div>
-      <div class="base right">C</div>
-      <div class="base right">A</div>
-      <div class="base right">T</div>
+      <div class="base right gc-pair">C</div>
+      <div class="base right at-pair">A</div>
+      <div class="base right at-pair">T</div>
       <div class="gap right" data-answer="G" contenteditable="true"></div>
-      <div class="base right">A</div>
-      <div class="base right">C</div>
+      <div class="base right at-pair">A</div>
+      <div class="base right gc-pair">C</div>
     </div>
   </div>
 </template>
@@ -718,28 +730,28 @@ function closePopup() {
 <template id="dna-strand-template-3">
   <div class="dna-container">
     <div class="strand top-strand">
-      <div class="base left">C</div>
+      <div class="base left gc-pair">C</div>
       <div class="gap left" data-answer="T" contenteditable="true"></div>
-      <div class="base left">A</div>
-      <div class="base left">G</div>
+      <div class="base left at-pair">A</div>
+      <div class="base left gc-pair">G</div>
       <div class="gap left" data-answer="T" contenteditable="true"></div>
-      <div class="base left">C</div>
+      <div class="base left gc-pair">C</div>
       <div class="gap left" data-answer="C" contenteditable="true"></div>
-      <div class="base left">G</div>
+      <div class="base left gc-pair">G</div>
       <div class="gap left" data-answer="A" contenteditable="true"></div>
-      <div class="base left">T</div>
+      <div class="base left at-pair">T</div>
     </div>
     <div class="strand bottom-strand">
       <div class="gap right" data-answer="G" contenteditable="true"></div>
-      <div class="base right">A</div>
-      <div class="base right">T</div>
+      <div class="base right at-pair">A</div>
+      <div class="base right at-pair">T</div>
       <div class="gap right" data-answer="C" contenteditable="true"></div>
-      <div class="base right">A</div>
-      <div class="base right">G</div>
-      <div class="base right">G</div>
+      <div class="base right at-pair">A</div>
+      <div class="base right gc-pair">G</div>
+      <div class="base right gc-pair">G</div>
       <div class="gap right" data-answer="C" contenteditable="true"></div>
-      <div class="base right">T</div>
-      <div class="base right">A</div>
+      <div class="base right at-pair">T</div>
+      <div class="base right at-pair">A</div>
     </div>
   </div>
 </template>
