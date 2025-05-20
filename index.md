@@ -611,8 +611,8 @@ menu: nav/home.html
   <div class="popup-page" id="page-4" style="display: none;">
     <h2>Game Rules</h2>
     <p>
-      <img src="{{ site.baseurl }}/images/dna-dynamite/quizexample.png" alt="quiz" style="max-width: 50%; height: auto; margin: 0 auto 20px; display: block;" />
-      If you fail to complete the strand before the strand moves off the screen, you lose a life. After three lives are lost, you must answer 3 trivia questions to continue playing.
+      <img src="{{site.baseurl}}/images/dna-dynamite/image.png" alt="quiz" style="max-width: 50%; height: auto; margin: 0 auto 20px; display: block;" />
+      If you fail to complete the strand before the strand moves off the screen, you lose a life. After three lives are lost, you must answer 3 trivia questions to continue playing. After answering the quiz, click restart to continue.
     </p>
     <div style="display: flex; justify-content: space-between; margin-top: 20px;">
       <button onclick="prevPage(3)">Back</button>
