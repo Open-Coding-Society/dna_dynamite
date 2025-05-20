@@ -1,8 +1,8 @@
 ---
 layout: post 
-title: Review Our Game!
+title: 🛠️ Tell Us How We Can Improve!
+description: Your feedback helps us get better every day 💬
 search_exclude: true
 permalink: /review/
 ---
 
-Tell us how we can improve!
