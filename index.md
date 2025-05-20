@@ -31,11 +31,17 @@ menu: nav/home.html
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
     color: #f1f5f9;
     z-index: 1010;
-    display: none;
+    
+    max-height: 80vh; /* or whatever max height you want */
+    overflow-y: auto; /* allow vertical scrolling */
+
+    /* NEW: flex layout to stack content vertically */
+    display: flex;
+    flex-direction: column;
+
     animation: fadeInScale 0.3s ease;
     pointer-events: auto;
     font-family: 'Inter', sans-serif;
-    overflow: hidden;
   }
 
   .quiz-overlay {
@@ -91,7 +97,8 @@ menu: nav/home.html
     font-size: 1rem;
     font-weight: 600;
     border-radius: 8px;
-    margin-top: 1rem;
+    margin-top: auto;      /* pushes button to the bottom */
+    align-self: center;    /* centers button horizontally */
     transition: all 0.2s ease;
     cursor: pointer;
   }
