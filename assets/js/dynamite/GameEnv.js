@@ -104,6 +104,8 @@ export class GameEnv {
       }
     }
       
+    static quackSound = new Audio("assets/js/sounds/glass-breaking-99389.mp3"); // Adjust path as needed
+
   
     static resize() {
       this.initialize(this.canvas);
@@ -141,12 +143,20 @@ export class GameEnv {
 
           this.boxes.splice(i, 1);
           if (box.element) box.element.remove();
-      
+          
+          // Play quack when heart breaks
+          if (this.lives > 0) {
+            this.quackSound.currentTime = 0; // rewind sound if still playing
+            this.quackSound.play();
+          }
+          
           this.lives--;
           this.updateHeartsDisplay();
+          
           if (this.lives <= 0) {
             this.endGame();
           }
+          
         }
       }      
   
