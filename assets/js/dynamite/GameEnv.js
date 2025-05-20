@@ -1,5 +1,6 @@
 import { submitHighScore } from './ScoreAPI.js';
 import { pythonURI, javaURI, fetchOptions } from '../api/config.js';
+import { showHighScorePopup } from './HighScorePopup.js';
 
 export class GameEnv {
     static boxes = [];
@@ -163,13 +164,19 @@ export class GameEnv {
       this.updateScoreDisplay();
     }
   
-    static endGame() {
-  this.gameOver = true;
-  showQuizModal();
+    static async endGame() {
+      this.gameOver = true;
+      showQuizModal();
 
-  submitHighScore(this.score, fetchOptions, pythonURI);
-}
+      const result = await submitHighScore(this.score, fetchOptions, pythonURI);
+
+      if (result.high_score_updated) {
+        console.log("✅ New high score, triggering popup...");
+        showHighScorePopup();
+      }
+    }
   
+
     static addBox(box) {
       this.boxes.push(box);
       const container = document.getElementById("gameContainer");
