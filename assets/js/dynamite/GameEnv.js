@@ -104,7 +104,7 @@ export class GameEnv {
       }
     }
       
-    static quackSound = new Audio("assets/js/sounds/glass-breaking-99389.mp3"); // Adjust path as needed
+    static quackSound = new Audio("assets/js/sounds/glass-breaking-99389 copy.mp3"); // Adjust path as needed
 
   
     static resize() {
