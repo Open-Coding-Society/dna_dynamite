@@ -20,6 +20,15 @@ permalink: /leaderboard/
     </tbody>
   </table>
 
+  <script>
+    fetch('http://127.0.0.1:3434/api/score/all_users')
+      .then(response => response.json())
+      .then(data => {
+      })
+      .catch(error => {
+        console.error('Error fetching leaderboard data:', error);
+      });
+  </script>
 
 </body>
 </html>
