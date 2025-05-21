@@ -443,7 +443,8 @@ menu: nav/home.html
   <h2>Trivia Quiz</h2>
 
   <!-- Close X inside popup -->
-  <button id="closeQuizButton" class="quiz-close-button">✖</button>
+ <button id="closeQuizButton" class="quiz-close-button" style="display: none;">✖</button>
+
 
   <!-- Dynamic content area -->
   <div id="quiz-container" class="mt-4"></div>
