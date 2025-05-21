@@ -455,12 +455,14 @@ menu: nav/home.html
 </div>
 
 
+
 <script type="module">
   // Correctly importing necessary modules
   import Game from '{{site.baseurl}}/assets/js/dynamite/Game.js';
   import GameEnv from '{{site.baseurl}}/assets/js/dynamite/GameEnv.js';  // Make sure this path is correct
   import GameController from '{{site.baseurl}}/assets/js/dynamite/GameController.js';
   import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
+  import { closeHighScorePopup } from '{{site.baseurl}}/assets/js/dynamite/closeHSP.js';
 
   const environment = {
     path: "{{site.baseurl}}",
