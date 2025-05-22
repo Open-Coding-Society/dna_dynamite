@@ -150,8 +150,8 @@ permalink: /predict/
           });
           const result = await response.json();
           if (response.ok) {
-            const heartRisk = result.data.heart_disease_risk;
-            const strokeRisk = result.data.stroke_risk;
+            const heartRisk = result.data.heart_disease_10yr_risk;
+            const strokeRisk = result.data.stroke_10yr_risk;
             resultsDiv.innerHTML = `
               Prediction Successful<br><br>
               Heart Disease Risk: ${(heartRisk * 100).toFixed(2)}%<br>
