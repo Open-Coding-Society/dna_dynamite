@@ -443,7 +443,8 @@ menu: nav/home.html
   <h2>Trivia Quiz</h2>
 
   <!-- Close X inside popup -->
-  <button id="closeQuizButton" class="quiz-close-button">✖</button>
+ <button id="closeQuizButton" class="quiz-close-button" style="display: none;">✖</button>
+
 
   <!-- Dynamic content area -->
   <div id="quiz-container" class="mt-4"></div>
@@ -462,7 +463,7 @@ menu: nav/home.html
   import GameEnv from '{{site.baseurl}}/assets/js/dynamite/GameEnv.js';  // Make sure this path is correct
   import GameController from '{{site.baseurl}}/assets/js/dynamite/GameController.js';
   import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
-  import { closeHighScorePopup } from '{{site.baseurl}}/assets/js/dynamite/closeHSP.js';
+  //import { closeHighScorePopup } from '{{site.baseurl}}/assets/js/dynamite/closeHSP.js';
 
   const environment = {
     path: "{{site.baseurl}}",
@@ -532,6 +533,12 @@ menu: nav/home.html
       console.error('GameEnv is not defined');
     }
   });
+/*
+   function closeHighScorePopup() {
+    document.getElementById('highScoreOverlay').style.display = 'none';
+    document.getElementById('highScorePopup').style.display = 'none';
+  }
+*/
 </script>
 
 <div id="overlay"></div>
@@ -675,6 +682,11 @@ function closePopup() {
   function closePopup() {
     document.getElementById("popup").style.display = "none";
     document.getElementById("overlay").style.display = "none";
+  }
+
+  function closeHighScorePopup() {
+    document.getElementById('highScoreOverlay').style.display = 'none';
+    document.getElementById('highScorePopup').style.display = 'none';
   }
 
   // Show popup on page load
