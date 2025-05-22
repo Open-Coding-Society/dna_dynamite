@@ -143,15 +143,15 @@ permalink: /predict/
           data[key] = parseFloat(data[key]);
         }
         try {
-          const response = await fetch("http://localhost:8887/api/predict_disease", {
+          const response = await fetch("http://localhost:3434/api/predict_disease", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
           });
           const result = await response.json();
           if (response.ok) {
-            const heartRisk = result.data.heart_disease_risk;
-            const strokeRisk = result.data.stroke_risk;
+            const heartRisk = result.data.heart_disease_10yr_risk;
+            const strokeRisk = result.data.stroke_10yr_risk;
             resultsDiv.innerHTML = `
               Prediction Successful<br><br>
               Heart Disease Risk: ${(heartRisk * 100).toFixed(2)}%<br>
