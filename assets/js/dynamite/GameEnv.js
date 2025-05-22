@@ -1,5 +1,6 @@
 import { submitHighScore } from './ScoreAPI.js';
 import { pythonURI, javaURI, fetchOptions } from '../api/config.js';
+import { showHighScorePopup } from './HighScorePopup.js';
 
 export class GameEnv {
     static boxes = [];
@@ -163,13 +164,19 @@ export class GameEnv {
       this.updateScoreDisplay();
     }
   
-    static endGame() {
-  this.gameOver = true;
-  showQuizModal();
+    static async endGame() {
+      this.gameOver = true;
+      showQuizModal();
 
-  submitHighScore(this.score, fetchOptions, pythonURI);
-}
+      const result = await submitHighScore(this.score, fetchOptions, pythonURI);
+
+      if (result.high_score_updated) {
+        console.log("✅ New high score, triggering popup...");
+        showHighScorePopup();
+      }
+    }
   
+
     static addBox(box) {
       this.boxes.push(box);
       const container = document.getElementById("gameContainer");
@@ -264,14 +271,25 @@ export class GameEnv {
         
           // Provide feedback based on the number of correct answers
           alert(`You got ${correctAnswers} out of ${selectedQuestions.length} questions correct.`);
-        
-          // Close the quiz modal
-          document.getElementById("closeQuizButton").addEventListener("click", () => {
+      
+          // Only show the close button if all answers are correct
+          const closeBtn = document.getElementById("closeQuizButton");
+          if (correctAnswers === selectedQuestions.length) {
+            closeBtn.style.display = "block"; // or "inline" depending on your layout
+          } else {
+            closeBtn.style.display = "none"; // Hide it if not all correct
+          }
+
+          // Attach event listener (if not already attached)
+          closeBtn.addEventListener("click", () => {
             const modal = document.getElementById("quizModal");
             const overlay = document.querySelector(".quiz-overlay");
             modal.style.display = "none";
             if (overlay) overlay.style.display = "none";
           });
+
+
+
         }
         
   

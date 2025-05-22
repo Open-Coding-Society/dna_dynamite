@@ -443,7 +443,8 @@ menu: nav/home.html
   <h2>Trivia Quiz</h2>
 
   <!-- Close X inside popup -->
-  <button id="closeQuizButton" class="quiz-close-button">✖</button>
+ <button id="closeQuizButton" class="quiz-close-button" style="display: none;">✖</button>
+
 
   <!-- Dynamic content area -->
   <div id="quiz-container" class="mt-4"></div>
@@ -455,12 +456,14 @@ menu: nav/home.html
 </div>
 
 
+
 <script type="module">
   // Correctly importing necessary modules
   import Game from '{{site.baseurl}}/assets/js/dynamite/Game.js';
   import GameEnv from '{{site.baseurl}}/assets/js/dynamite/GameEnv.js';  // Make sure this path is correct
   import GameController from '{{site.baseurl}}/assets/js/dynamite/GameController.js';
   import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
+  //import { closeHighScorePopup } from '{{site.baseurl}}/assets/js/dynamite/closeHSP.js';
 
   const environment = {
     path: "{{site.baseurl}}",
@@ -530,9 +533,24 @@ menu: nav/home.html
       console.error('GameEnv is not defined');
     }
   });
+/*
+   function closeHighScorePopup() {
+    document.getElementById('highScoreOverlay').style.display = 'none';
+    document.getElementById('highScorePopup').style.display = 'none';
+  }
+*/
 </script>
 
 <div id="overlay"></div>
+
+<div id="highScoreOverlay" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 9999;">
+  <div id="highScorePopup" class="popup-page" style="display: none; background: #1e293b; color: white; padding: 2rem; border-radius: 1rem; max-width: 400px; margin: 100px auto; text-align: center;">
+    <h2>🎉 New High Score!</h2>
+    <p>Great job! You just beat your best score.</p>
+    <button onclick="closeHighScorePopup()">Awesome!</button>
+  </div>
+</div>
+
 
 <div id="popup" style="display: none;">
   <!-- Exit button -->
@@ -670,12 +688,16 @@ function closePopup() {
     document.getElementById("overlay").style.display = "none";
   }
 
+  function closeHighScorePopup() {
+    document.getElementById('highScoreOverlay').style.display = 'none';
+    document.getElementById('highScorePopup').style.display = 'none';
+  }
+
   // Show popup on page load
   window.onload = openPopup;
 
-
-  
 </script>
+
 
 <template id="dna-strand-template-1">
   <div class="dna-container">

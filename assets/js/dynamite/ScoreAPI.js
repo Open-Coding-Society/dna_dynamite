@@ -10,13 +10,18 @@ export async function submitHighScore(score, fetchOptions, pythonURI) {
       body: JSON.stringify({ score: score })
     });
 
+    const data = await response.json(); // ✅ only call this once
+
     if (!response.ok) {
-      console.error("Failed to update high score");
-    } else {
-      const data = await response.json();
-      console.log("High score updated:", data);
+      console.error("Failed to update high score:", data);
+      return { high_score_updated: false };
     }
+
+    console.log("High score updated:", data);
+    return data; // expect { high_score_updated: true }
   } catch (err) {
     console.error("Error submitting high score:", err);
+    return { high_score_updated: false };
   }
 }
+  
