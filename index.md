@@ -365,7 +365,12 @@ menu: nav/home.html
 .shadow-lg {
   box-shadow: 0 10px 25px rgba(0,0,0,0.4);
 }
-
+.hearts {
+  font-size: 50px;  /* big hearts */
+  user-select: none; /* prevent highlight if you want */
+  color: red;
+  text-shadow: 1px 1px 2px darkred;
+}
 </style>
 
 <div style="height: calc(100vh - 60px);" class="w-screen">
@@ -430,11 +435,35 @@ menu: nav/home.html
     </div>
 
     <!-- Right Panel -->
-  <div class="p-4 bg-gray-900 flex flex-col justify-between items-center">
-      <!-- Lives (dynamic) -->
-      <div id="livesContainer" class="flex justify-center text-3xl space-x-2">
-        <!-- GameEnv will populate this -->
-      </div>
+  <div class="p-4 bg-gray-900 flex flex-col items-start w-full">
+    <!-- Lives (dynamic) -->
+    <div id="livesContainer" class="flex justify-center text-3xl space-x-2 w-full mb-4">
+      <!-- GameEnv will populate this -->
+  <div class="hearts">
+    ❤️ ❤️ ❤️
+  </div>
+    </div>
+
+    <!-- Leaderboard -->
+  <div class="w-full px-2 mt-6">
+    <h2 class="text-xl font-semibold text-sky-400 mb-2 text-center">:trophy: Leaderboard</h2>
+    <div class="overflow-x-auto">
+      <table class="min-w-full table-auto text-sm rounded-lg shadow-lg overflow-hidden bg-black text-white border border-gray-700">
+        <thead>
+          <tr class="bg-blue-600 text-white">
+            <th class="px-4 py-2">Name</th>
+            <th class="px-4 py-2">Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <!-- JS will inject rows -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  </div>
+
 
 <!-- Trivia Quiz Modal -->
 <div class="quiz-overlay" id="quizOverlay" style="display: none;"></div>
@@ -455,7 +484,34 @@ menu: nav/home.html
   </button>
 </div>
 
+<script>
+  // Fetch leaderboard data
+  fetch('http://127.0.0.1:3434/api/score/all_users')
+    .then(response => response.json())
+    .then(data => {
+      const tbody = document.getElementById('leaderboardBody');
+      data.sort((a, b) => b.score - a.score);
+      data.forEach(entry => {
+        const row = document.createElement('tr');
+        row.className = 'hover:bg-gray-100';
 
+        const userCell = document.createElement('td');
+        userCell.className = 'px-4 py-2 text-center font-medium';
+        userCell.textContent = entry.name ?? entry.user_id;
+
+        const scoreCell = document.createElement('td');
+        scoreCell.className = 'px-4 py-2 text-center';
+        scoreCell.textContent = entry.score;
+
+        row.appendChild(userCell);
+        row.appendChild(scoreCell);
+        tbody.appendChild(row);
+      });
+    })
+    .catch(error => {
+      console.error('Error fetching leaderboard data:', error);
+    });
+</script>
 
 <script type="module">
   // Correctly importing necessary modules
