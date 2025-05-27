@@ -17,18 +17,10 @@ h2, h3 {
 
 h1 {
     font-family: "Poppins", sans-serif;
-    color: #2E8B57;
+    color: #000000;
     font-size: 2.5em;
     margin-bottom: 10px;
 }
-/*
-body {
-    font-family: 'Arial', sans-serif;
-    background-color: #1b3a1b !important; /* Dark Forest Green */
-   /* color: #e0e0e0;
-    line-height: 1.6;
-}
-/*
 /* Flex Container for Centered Content */
 .flex-column-centered {
     display: flex;
@@ -63,7 +55,7 @@ body {
 
 .post-item h3 {
     font-size: 1.5rem;
-    color: #a8d5ba; /* Soft muted green */
+    color: #000000; /* Soft muted green */
 }
 
 .post-item p {
@@ -94,7 +86,7 @@ body {
 }
 
 .form-container button:hover {
-    background-color: #1abc9c;
+    background-color: #000000;
 }
 
 /* Dropdowns */
@@ -173,7 +165,7 @@ body {
 }
 
 .dot.active {
-    background-color: #a8d5ba; /* Soft muted green */
+    background-color: #000000; /* Soft muted green */
 }
 
 
@@ -181,7 +173,7 @@ body {
 
 <div class="flex-column-centered">
     <div class="form-container">
-  <h2>Create a Post</h2>
+  <h2>Create a Review</h2>
   <form id="postForm">
     <input type="text" id="title" name="title" required placeholder="Title">
     <textarea id="comment" name="comment" required placeholder="Comment"></textarea>
