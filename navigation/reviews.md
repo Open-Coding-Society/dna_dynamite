@@ -144,14 +144,6 @@ h1 {
     padding: 20px;
 }
 
-.post-item button {
-    background-color: #8b0000; /* Deep earthy red */
-    margin-top: 10px;
-}
-
-.post-item button:hover {
-    background-color: #600000;
-}
 
 /* Dots for Slideshow */
 .dot {
