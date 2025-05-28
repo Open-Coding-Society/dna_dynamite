@@ -445,8 +445,8 @@ menu: nav/home.html
     </div>
 
     <!-- Leaderboard -->
-  <div class="w-full px-2 mt-6">
-    <h2 class="text-xl font-semibold text-sky-400 mb-2 text-center">:trophy: Leaderboard</h2>
+  <div class="w-full px-2 mt-16">
+    <h2 class="text-xl font-semibold text-sky-400 mb-2 text-center">Leaderboard</h2>
     <div class="overflow-x-auto">
       <table class="min-w-full table-auto text-sm rounded-lg shadow-lg overflow-hidden bg-black text-white border border-gray-700">
         <thead>
