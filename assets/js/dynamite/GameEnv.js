@@ -272,21 +272,17 @@ export class GameEnv {
           // Provide feedback based on the number of correct answers
           alert(`You got ${correctAnswers} out of ${selectedQuestions.length} questions correct.`);
       
-          // Only show the close button if all answers are correct
-          const closeBtn = document.getElementById("closeQuizButton");
           if (correctAnswers === selectedQuestions.length) {
-            closeBtn.style.display = "block"; // or "inline" depending on your layout
-          } else {
-            closeBtn.style.display = "none"; // Hide it if not all correct
-          }
-
-          // Attach event listener (if not already attached)
-          closeBtn.addEventListener("click", () => {
+            // ✅ All answers are correct, auto-close modal
             const modal = document.getElementById("quizModal");
             const overlay = document.querySelector(".quiz-overlay");
             modal.style.display = "none";
             if (overlay) overlay.style.display = "none";
-          });
+          } else {
+            // ❌ Not all correct, allow user to try again (optional)
+            const closeBtn = document.getElementById("closeQuizButton");
+            closeBtn.style.display = "none"; // Hide it if not all correct
+          }          
 
 
 
