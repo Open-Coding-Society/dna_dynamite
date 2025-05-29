@@ -371,6 +371,23 @@ menu: nav/home.html
   color: red;
   text-shadow: 1px 1px 2px darkred;
 }
+ #highScorePopup button {
+    padding: 0.5rem 1rem;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+  #highScorePopup button:hover {
+    background-color: #059669;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 </style>
 
 <div style="height: calc(100vh - 60px);" class="w-screen">
@@ -604,6 +621,7 @@ menu: nav/home.html
     <h2>🎉 New High Score!</h2>
     <p>Great job! You just beat your best score.</p>
     <button onclick="closeHighScorePopup()">Awesome!</button>
+
   </div>
 </div>
 
