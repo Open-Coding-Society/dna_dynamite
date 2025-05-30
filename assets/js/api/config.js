@@ -1,8 +1,8 @@
 export var pythonURI;
 if (location.hostname === "localhost") {
-        pythonURI = "http://localhost:3434";
+        pythonURI = "http://localhost:2025";
 } else if (location.hostname === "127.0.0.1") {
-        pythonURI = "http://127.0.0.1:3434";
+        pythonURI = "http://127.0.0.1:2025";
 } else {
         pythonURI =  "https://dnadynamite.stu.nighthawkcodingsociety.com";
 }

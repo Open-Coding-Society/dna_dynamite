@@ -143,7 +143,7 @@ permalink: /predict/
           data[key] = parseFloat(data[key]);
         }
         try {
-          const response = await fetch("http://localhost:3434/api/predict_disease", {
+          const response = await (`${pythonURI}/api/score/all_users`, fetchOptions, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)

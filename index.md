@@ -503,7 +503,7 @@ menu: nav/home.html
 
 <script>
   // Fetch leaderboard data
-  fetch('http://127.0.0.1:3434/api/score/all_users')
+  fetch(`${pythonURI}/api/score/all_users`, fetchOptions)
     .then(response => response.json())
     .then(data => {
       const tbody = document.getElementById('leaderboardBody');
