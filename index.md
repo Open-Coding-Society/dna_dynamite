@@ -2,7 +2,7 @@
 layout: tailwind
 title: DNA Dynamite
 search_exclude: true
-description: Illumina Pilot City Project
+description: Open Coding Society Project
 menu: nav/home.html
 ---
 

@@ -1,9 +1,9 @@
 title: DNA Dynamite
 description: "Illumina DNA Dynamite Game"
 owner_name: Team Smart Cells
-github_username: blackstar3092
-github_repo: "illumina_pc_frontend" 
-baseurl: "/illumina_pc_frontend"
+github_username: Open-Coding-Society
+github_repo: "dna_dynamite" 
+baseurl: "/dna_dynamite"
 future: true
 remote_theme: jekyll/minima
 minima:
