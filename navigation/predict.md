@@ -127,7 +127,9 @@ permalink: /predict/
       </form>
       <div id="results"></div>
     </div>
-    <script>
+    <script type="module">
+      // delete function in its own script tag to put it in a global scope/independent 
+      import { pythonURI, fetchOptions } from '{{ site.baseurl }}/assets/js/api/config.js';
       const form = document.getElementById("riskForm");
       const resultsDiv = document.getElementById("results");
       function getRiskLabel(value) {
@@ -143,7 +145,7 @@ permalink: /predict/
           data[key] = parseFloat(data[key]);
         }
         try {
-          const response = await (`${pythonURI}/api/score/all_users`, fetchOptions, {
+          const response = await fetch(`${pythonURI}/api/predict_disease`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data)
