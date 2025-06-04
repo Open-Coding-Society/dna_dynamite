@@ -18,6 +18,7 @@ plugins:
   - jekyll-toc
 
 header_pages:
+  - navigation/documentation.md
   - navigation/reviews.md
   - navigation/gamerules.md
   - navigation/predict.md
