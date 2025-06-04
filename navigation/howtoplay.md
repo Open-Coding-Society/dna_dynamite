@@ -140,14 +140,14 @@ Outside of the DNA Dynamite game, we have other features that are useful to the 
 
 <div class="slider">
   <div class="slides">
-    <img src="{{ site.baseurl }}images/play/feedback.png" alt="Slide 1">
+    <img src="{{ site.baseurl }}/images/play/feedback.png" alt="Slide 1">
   </div>
 </div>
 To give feedback on our game, click on Feedback in the top menu. 
 
 <div class="slider">
   <div class="slides">
-    <img src="{{ site.baseurl }}images/play/channel.png" alt="Slide 1">
+    <img src="{{ site.baseurl }}/images/play/channel.png" alt="Slide 1">
   </div>
 </div>
 
