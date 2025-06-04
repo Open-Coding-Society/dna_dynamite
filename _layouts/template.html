@@ -4,39 +4,96 @@ layout: base
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="referrer" content="origin" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{{ page.title }} - My Cool Website</title>
-    <link rel="icon" href="./favicon.ico" type="image/x-icon">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
-  </head>
-  <body>
-    <main>
-      <!-- Hero Section -->
-      <div style="height: 100vh; background-color: rgb(18, 24, 38);" class="flex items-center justify-center">
-        <div class="mx-auto max-w-2xl text-center">
-            <h1 class="text-5xl font-bold tracking-tight text-white sm:text-7xl">{{ page.title }}</h1>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{{ page.title }} - {{ site.title }}</title>
+  <link rel="icon" href="{{ site.baseurl }}/favicon.ico" type="image/x-icon" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
 
-      <!-- Blog Content Section -->
-      <div class="bg-white py-24 sm:py-32">
-        <div class="mx-auto max-w-7xl px-6 lg:px-8">
-          <div class="mx-auto max-w-2xl lg:text-center">
-            <h2 class="text-base font-semibold leading-7 text-pink-600">Blog</h2>
-            <p class="mt-2 text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">{{ page.title }}</p>
-          </div>
-          
-          <div class="mx-auto mt-16 max-w-2xl sm:mt-20 lg:mt-24 lg:max-w-4xl">
-            <div class="markdown-content">
-              {{ content }}  <!-- This is where the post content will be rendered -->
-            </div>
-          </div>
+  <style>
+    @keyframes fadeSlideIn {
+      0% {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .animate-fadeSlideIn {
+      animation: fadeSlideIn 0.6s ease-out both;
+    }
+
+    #scrollTopBtn {
+      display: none;
+    }
+
+    #scrollTopBtn.show {
+      display: block;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
+</head>
+
+<body class="bg-white text-gray-900 dark:bg-slate-900 dark:text-white font-sans transition-colors duration-300">
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex items-center justify-center bg-slate-900 text-white text-center px-4 shadow-lg">
+    <div class="max-w-2xl animate-fadeSlideIn">
+      <h1 class="text-5xl sm:text-6xl font-bold tracking-tight">{{ page.title }}</h1>
+    </div>
+  </section>
+
+  <!-- Main Section -->
+  <section class="bg-white dark:bg-slate-900 py-20 px-6 sm:px-12">
+    <div class="max-w-7xl mx-auto lg:grid lg:grid-cols-[260px_1fr] gap-12">
+
+      <!-- Sidebar TOC using jekyll-toc -->
+      <aside class="hidden lg:block text-sm text-slate-700 dark:text-slate-300">
+        <div class="sticky top-24 bg-white dark:bg-slate-800 shadow-md rounded-lg p-4 border border-slate-200 dark:border-slate-700 animate-fadeSlideIn">
+          <p class="font-semibold mb-3 text-slate-600 dark:text-slate-400">On this page:</p>
+          {% include toc.html html=content %}
         </div>
-      </div>
-    </main>
-  </body>
+      </aside>
+
+      <!-- Main Markdown Article -->
+      <article class="markdown-content prose prose-slate dark:prose-invert max-w-none animate-fadeSlideIn shadow-lg rounded-lg p-6 bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+        {{ content }}
+      </article>
+    </div>
+  </section>
+
+  <!-- Divider -->
+  <hr class="border-t border-gray-200 dark:border-slate-700 my-16 max-w-5xl mx-auto" />
+
+  <!-- Scroll to Top -->
+  <button id="scrollTopBtn"
+          onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+          class="fixed bottom-6 right-6 z-50 bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-full shadow-xl transition-all duration-300">
+    ↑
+  </button>
+
+  <script>
+    window.onscroll = function () {
+      const btn = document.getElementById("scrollTopBtn");
+      if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+        btn.classList.add("show");
+      } else {
+        btn.classList.remove("show");
+      }
+    };
+  </script>
+
+</body>
 </html>
