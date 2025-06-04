@@ -10,21 +10,16 @@ menu: nav/documentation.html
   width: 100%;
   overflow-x: auto;
   white-space: nowrap;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  border: 2px solid #ccc;
-  padding: 10px;
-  box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
-.slides img {
-  width: 300px;
-  height: 200px;
-  object-fit: cover;
+.slider img {
   display: inline-block;
   margin-right: 10px;
-  scroll-snap-align: start;
-  border-radius: 8px;
+  max-height: 300px; /* Optional: keeps images from being too tall */
+  vertical-align: middle;
+  border: none;
+  outline: none;
 }
 </style>
 
