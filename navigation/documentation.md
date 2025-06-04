@@ -1,5 +1,5 @@
 ---
-layout: post 
+layout: post
 title: Documentation
 description: Learn about DNA Dynamite
 permalink: /documentation/
