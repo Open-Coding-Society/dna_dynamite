@@ -1,8 +1,9 @@
 ---
-layout: post
+layout: template
 title: Documentation
 description: Learn about DNA Dynamite
 permalink: /documentation/
+toc: false
 ---
 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
 
@@ -17,8 +18,8 @@ permalink: /documentation/
     <h2 class="text-2xl font-semibold mb-3">How to Develop</h2>
     <ul class="list-disc list-inside space-y-2">
       <li><a href="{{ site.baseurl }}/frontend" class="text-white hover:underline">Frontend</a></li>
-      <li><a href="{{ site.baseurl }}/backend_documentation" class="text-white hover:underline">Backend</a></li>
-      <li><a href="{{ site.baseurl }}/design_documentation" class="text-white hover:underline">Design Documentation</a></li>
+      <li><a href="{{ site.baseurl }}/backend" class="text-white hover:underline">Backend</a></li>
+      <li><a href="{{ site.baseurl }}/design" class="text-white hover:underline">Design Documentation</a></li>
     </ul>
   </div>
 
