@@ -16,7 +16,7 @@ permalink: /documentation/
   <div class="bg-[#001f3f] text-white border border-slate-200 rounded-xl p-6 shadow transition-all duration-300">
     <h2 class="text-2xl font-semibold mb-3">How to Develop</h2>
     <ul class="list-disc list-inside space-y-2">
-      <li><a href="{{ site.baseurl }}/frontend_documentation" class="text-white hover:underline">Frontend</a></li>
+      <li><a href="{{ site.baseurl }}/frontend" class="text-white hover:underline">Frontend</a></li>
       <li><a href="{{ site.baseurl }}/backend_documentation" class="text-white hover:underline">Backend</a></li>
       <li><a href="{{ site.baseurl }}/design_documentation" class="text-white hover:underline">Design Documentation</a></li>
     </ul>
