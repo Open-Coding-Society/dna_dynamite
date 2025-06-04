@@ -84,7 +84,7 @@ Each time you complete a strand, your score on the left increases by 1. If you f
 
 <div class="slider">
   <div class="slides">
-    <img src="{{ site.baseurl }}images/play/3hearts.png" alt="Slide 1">
+    <img src="{{ site.baseurl }}/images/play/3hearts.png" alt="Slide 1">
     <img src="{{ site.baseurl }}/images/play/score.png" alt="Slide 2">
   </div>
 </div>
@@ -95,17 +95,35 @@ The three hearts on the right side of the screen represent the three lives you h
 
 Once all three lives are lost, the game stops and the trivia quiz pops up on the screen. The quiz contains DNA related question in which you must choose the correct answer to continue playing the game. If you get the question right, you can click on the x at the top right corner of the popup and continue playing the game. If you get the question wrong, a Gemini sourced explaination will appear, teaching you what the correct answer is supposed to be. Continue the quiz until you get a question right and are able to exit out of the popup. 
 
-(pic)
+
+<div class="slider">
+  <div class="slides">
+    <img src="{{ site.baseurl }}/images/play/restart.png" alt="Slide 1">
+  </div>
+</div>
+
 After completing the trivia quiz, click restart on the left menu to restart the game and begin to play again. 
 
 ---
 
 # Other Features of the Game
 
-(pic)
+
+<div class="slider">
+  <div class="slides">
+    <img src="{{ site.baseurl }}/images/play/pause.png" alt="Slide 1">
+    <img src="{{ site.baseurl }}/images/play/resume.png" alt="Slide 2">
+  </div>
+</div>
+
 Click the pause button in the left menu to pause your game temporarily. Click resume to resume playing the game. 
 
-(pic)
+
+<div class="slider">
+  <div class="slides">
+    <img src="{{ site.baseurl }}/images/play/speed.png" alt="Slide 1">
+  </div>
+</div>
 For an increased challenge, click Increase Speed in the left menu to increase the speed at which the DNA strands move up the screen and new strands spawn. 
 
 (pic)
@@ -140,9 +158,21 @@ Select the type of feedback under the Channel dropdown to either Report a Bug, p
 ### Predict Your Risk
 Did you know DNA Dynamite can also predict Heart Disease & Stroke? 
 
-(pic)
+
+<div class="slider">
+  <div class="slides">
+    <img src="{{ site.baseurl }}/images/play/predictbutt.png" alt="Slide 1">
+  </div>
+</div>
+
 Click on Predict Your Risk in the top menu. 
 
-(pic)
+<div class="slider">
+  <div class="slides">
+    <img src="{{ site.baseurl }}/images/play/predictml.png" alt="Slide 1">
+    <img src="{{ site.baseurl }}/images/play/prediction.png" alt="Slide 2">
+  </div>
+</div>
+
 Enter your information in each indicated slot and click Get Prediction to see your risk factor!
 
