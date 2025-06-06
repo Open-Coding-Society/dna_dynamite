@@ -501,7 +501,8 @@ menu: nav/home.html
   </button>
 </div>
 
-<script>
+<script type="module">
+  import { pythonURI, javaURI, fetchOptions } from '{{site.baseurl}}/assets/js/api/config.js';
   // Fetch leaderboard data
   fetch(`${pythonURI}/api/score/all_users`, fetchOptions)
     .then(response => response.json())
